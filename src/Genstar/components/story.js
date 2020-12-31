@@ -2,84 +2,104 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Theme from "./theme";
 import Conflict from "./conflict";
+import StoryCharacter from "./story-character";
 import StoryWords from "./story-words";
 import themes from "../data/themes";
+import { givenNames, familyNames } from "../data/names";
 
-import { positiveWords, negativeWords } from "../data/words";
+import { allWords } from "../data/words";
 
-const conflictTypes = [
+const shuffle = (items) =>
+  items
+    .map((a) => ({ sort: Math.random(), value: a }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value);
+
+const conflicts = [
   "Character vs. Nature",
   "Character vs. Self",
   "Character vs. Machine",
   "Character vs. Society",
 ];
 
-const randomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+// const randomNewElement = (arr, currentEl) =>
+//   arr.filter((el) => el !== currentEl)[Math.floor(Math.random() * arr.length)];
 
-const getTheme = (theme) =>
-  randomElement(themes.filter((item) => item !== theme));
-
-const getConflict = (storyType) =>
-  randomElement(conflictTypes.filter((item) => item !== storyType));
-
-// const getWord = (currentWords) => {
-//   const newWords = negativeWords
-//     .concat(positiveWords)
-//     .filter((word) => !currentWords.contains(word));
-//   return randomElement(newWords);
-// };
-
-const getNewWords = (excludedWords) =>
-  negativeWords
-    .concat(positiveWords)
-    .filter((word) => !excludedWords.contains(excludedWords));
-
-const getWords = (currentWords) => {
-  // newWords are all words excluding current words and new Words
-  // for the length of current words, if any are "", get new word
-
-  const excludedWords = [...currentWords];
-
-  const getNewWords = (excluded) =>
-    positiveWords
-      .concat(negativeWords)
-      .filter((word) => !excluded.includes(word));
-
-  const newStoryWords = currentWords
-    .filter((currentWord) => !currentWord.length)
-    .map((currentWord) => {
-      const newWords = getNewWords(excludedWords);
-      const newWord = randomElement(newWords);
-      excludedWords.push(newWord);
-      return newWord;
-    });
-
-  console.log(newStoryWords);
-  return newStoryWords;
-};
-
-class CharacterDetails {
-  constructor({ givenName, familyName, imageData }) {
-    this.givenName = givenName || "";
-    this.familyName = familyName || "";
-    this.imageData = imageData || "";
-  }
-}
+const randomItems = (array, number = 1, currentItems = []) =>
+  shuffle(array)
+    .filter((item) => !currentItems.includes(item))
+    .slice(0, number);
 
 const getSetting = () => "Paris, France";
 
-const getCharacters = () => [
-  new CharacterDetails({}),
-  new CharacterDetails({}),
-];
+const ProfileImageWrapper = styled.div`
+  height: 64px;
+`;
 
-const formStory = ({ theme, conflict, characters, words, setting }) => ({
-  theme: theme ? theme : getTheme(),
-  conflict: conflict ? conflict : getConflict(),
-  characters: !!characters && getCharacters(characters || [{}, {}]),
-  words: words !== false && getWords(words || ["", "", "", ""]),
-  setting: setting && getSetting(),
-});
+const ProfileInitials = styled.div`
+  background-color: #64b5f6;
+  border-radius: 30px;
+  color: rgba(255, 255, 255, 0.87);
+  display: inline-flex;
+  font-size: 24px;
+  height: 48px;
+  justify-content: center;
+  line-height: 48px;
+  margin-right: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  vertical-align: middle;
+  width: 48px;
+`;
+
+const ProfilePhoto = styled.img``;
+
+function createProfileImage({ url, givenName, familyName, idx }) {
+  let image;
+  if (!url && (givenName || familyName)) {
+    const letter1 = givenName && givenName.charAt(0);
+    const letter2 = familyName && familyName.charAt(0);
+    image = (
+      <ProfileInitials>
+        {letter1}{letter2}
+      </ProfileInitials>
+    );
+  }
+  if (url) {
+    image = <ProfilePhoto src={url} />;
+  }
+
+  return <ProfileImageWrapper>{image}</ProfileImageWrapper>;
+}
+
+class Character {
+  constructor({ givenName, familyName, image, idx }) {
+    this.givenName = givenName || randomItems(givenNames).join("");
+    this.familyName = familyName || randomItems(familyNames).join("");
+    this.idx = idx || -1;
+    this.image = image || this.createImage();
+  }
+  createImage() {
+    return createProfileImage({
+      givenName: this.givenName,
+      familyName: this.familyName,
+      idx: this.idx,
+    });
+  }
+}
+
+class StoryLine {
+  constructor({ theme, conflict, characters, words, setting }) {
+    this.theme = theme || randomItems(themes);
+    this.conflict = conflict || randomItems(conflicts);
+    this.characters = characters || [
+      new Character({ idx: 1 }),
+      new Character({ idx: 2 }),
+    ];
+    this.words = words || randomItems(allWords, 4);
+    this.setting = setting || getSetting(setting);
+  }
+}
 
 const StoryContainer = styled.div`
   background: #2f353d;
@@ -87,7 +107,7 @@ const StoryContainer = styled.div`
 `;
 
 export default function Story(props) {
-  const [story, setStory] = useState(formStory({}));
+  const [story, setStory] = useState(new StoryLine({}));
 
   const handleUpdateStory = (updatedStory) => {
     const newStory = Object.assign(story, updatedStory);
@@ -97,6 +117,9 @@ export default function Story(props) {
     <StoryContainer>
       <Theme theme={story.theme} handleUpdateStory={handleUpdateStory} />
       <Conflict conflict={story.conflict} />
+      {story.characters.map((character, i) => (
+        <StoryCharacter character={character} key={`character-${i}`} />
+      ))}
       <StoryWords words={story.words} />
     </StoryContainer>
   );
