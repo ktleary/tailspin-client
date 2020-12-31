@@ -7,13 +7,20 @@ const ThemeWrapper = styled.div`
 
 const ThemeTitle = styled.div`
   color: rgba(255, 255, 255, 1);
+  cursor: pointer;
   font-size: 24px;
+  &:hover{
+    color: #64ffda;
+  }
 `;
 
-export default function Theme({ theme }) {
+export default function Theme(props) {
+  const { handleClick, theme } = props;
   return (
     <ThemeWrapper>
-      <ThemeTitle>{theme}</ThemeTitle>
+      <ThemeTitle name="theme" onClick={handleClick}>
+        {theme}
+      </ThemeTitle>
     </ThemeWrapper>
   );
 }

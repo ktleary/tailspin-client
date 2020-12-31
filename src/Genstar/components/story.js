@@ -61,7 +61,8 @@ function createProfileImage({ url, givenName, familyName, idx }) {
     const letter2 = familyName && familyName.charAt(0);
     image = (
       <ProfileInitials>
-        {letter1}{letter2}
+        {letter1}
+        {letter2}
       </ProfileInitials>
     );
   }
@@ -90,8 +91,8 @@ class Character {
 
 class StoryLine {
   constructor({ theme, conflict, characters, words, setting }) {
-    this.theme = theme || randomItems(themes);
-    this.conflict = conflict || randomItems(conflicts);
+    this.theme = theme || randomItems(themes).join("");
+    this.conflict = conflict || randomItems(conflicts).join("");
     this.characters = characters || [
       new Character({ idx: 1 }),
       new Character({ idx: 2 }),
@@ -106,17 +107,26 @@ const StoryContainer = styled.div`
   margin: 0 16px;
 `;
 
+const update = {
+  theme: (currentTheme) => randomItems(themes, 1, currentTheme).join(""),
+  conflict: (currentConflict) =>
+    randomItems(conflicts, 1, currentConflict).join(""),
+};
+
 export default function Story(props) {
   const [story, setStory] = useState(new StoryLine({}));
 
-  const handleUpdateStory = (updatedStory) => {
-    const newStory = Object.assign(story, updatedStory);
-    setStory(newStory);
+  const handleClick = (e) => {
+    const name = e.currentTarget.getAttribute("name");
+    setStory({
+      ...story,
+      [name]: update[name](story[name]),
+    });
   };
   return (
     <StoryContainer>
-      <Theme theme={story.theme} handleUpdateStory={handleUpdateStory} />
-      <Conflict conflict={story.conflict} />
+      <Theme theme={story.theme} handleClick={handleClick} />
+      <Conflict conflict={story.conflict} handleClick={handleClick} />
       {story.characters.map((character, i) => (
         <StoryCharacter character={character} key={`character-${i}`} />
       ))}
