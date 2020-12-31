@@ -9,20 +9,34 @@ const CharacterWrapper = styled.div`
 `;
 
 const ProfilePictureCell = styled.div`
+  cursor: pointer;
   height: 48px;
+  &:hover {
+    color: #64ffda;
+  }
 `;
 
 const NameCell = styled.div`
+  cursor: pointer;
   margin-right: 6px;
+  &:hover {
+    color: #64ffda;
+  }
 `;
 
 export default function StoryCharacter(props) {
-  const { character } = props;
+  const { character, handleCharacter, idx } = props;
   return (
     <CharacterWrapper>
-      <ProfilePictureCell>{character.image}</ProfilePictureCell>
-      <NameCell>{character.givenName}</NameCell>
-      <NameCell>{character.familyName}</NameCell>
+      <ProfilePictureCell onClick={() => handleCharacter("image", idx)}>
+        {character.image}
+      </ProfilePictureCell>
+      <NameCell onClick={() => handleCharacter("givenName", idx)}>
+        {character.givenName}
+      </NameCell>
+      <NameCell onClick={() => handleCharacter("familyName", idx)}>
+        {character.familyName}
+      </NameCell>
     </CharacterWrapper>
   );
 }

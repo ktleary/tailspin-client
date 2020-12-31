@@ -111,6 +111,9 @@ const update = {
   theme: (currentTheme) => randomItems(themes, 1, currentTheme).join(""),
   conflict: (currentConflict) =>
     randomItems(conflicts, 1, currentConflict).join(""),
+  givenName: (currentName) => randomItems(givenNames, 1, currentName).join(""),
+  familyName: (currentName) =>
+    randomItems(familyNames, 1, currentName).join(""),
 };
 
 export default function Story(props) {
@@ -123,12 +126,28 @@ export default function Story(props) {
       [name]: update[name](story[name]),
     });
   };
+  const handleCharacter = (name, row) => {
+    const { characters } = { ...story };
+    const currentValue = characters[row][name];
+    const updated = update[name](currentValue);
+    characters[row][name] = updated;
+
+    setStory({
+      ...story,
+      characters,
+    });
+  };
   return (
     <StoryContainer>
       <Theme theme={story.theme} handleClick={handleClick} />
       <Conflict conflict={story.conflict} handleClick={handleClick} />
-      {story.characters.map((character, i) => (
-        <StoryCharacter character={character} key={`character-${i}`} />
+      {story.characters.map((character, idx) => (
+        <StoryCharacter
+          character={character}
+          key={`character-${idx}`}
+          handleCharacter={handleCharacter}
+          idx={idx}
+        />
       ))}
       <StoryWords words={story.words} />
     </StoryContainer>
