@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 const HeaderContainer = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.66);
   padding-left: 16px;
   padding-top: 32px;
   margin-bottom: 32px;
   max-width: 444px;
-  width: 100%;
 `;
 
 const Title = styled.h1`
@@ -32,7 +32,7 @@ const Header = ({ title }) => (
   <HeaderContainer>
     <Title>{title}</Title>
     <Subtitle>
-      Thicken the <Emphasis>plot</Emphasis>
+      Stir the <Emphasis>plot</Emphasis>
     </Subtitle>
   </HeaderContainer>
 );
