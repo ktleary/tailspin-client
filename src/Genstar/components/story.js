@@ -81,6 +81,8 @@ function createProfileImage({ url, givenName, familyName, idx }) {
 const randomInt = (min = 0, max = 99) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
+const createProfileUrl = () => `/images/${randomInt()}.png`;
+
 class Character {
   constructor({ givenName, familyName, image, idx }) {
     this.givenName = givenName || randomItems(givenNames).join("");
@@ -90,7 +92,6 @@ class Character {
   }
   createImage() {
     const random = randomInt();
-    console.log({ random });
     return createProfileImage({
       givenName: this.givenName,
       familyName: this.familyName,
@@ -125,7 +126,7 @@ const update = {
   givenName: (currentName) => randomItems(givenNames, 1, currentName).join(""),
   familyName: (currentName) =>
     randomItems(familyNames, 1, currentName).join(""),
-  image: (currentImage) => randomItems(),
+  image: (currentImage) => createProfileImage({ url: createProfileUrl() }),
 };
 
 export default function Story(props) {
@@ -143,7 +144,6 @@ export default function Story(props) {
     const currentValue = characters[row][name];
     const updated = update[name](currentValue);
     characters[row][name] = updated;
-
     setStory({
       ...story,
       characters,
