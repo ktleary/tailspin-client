@@ -4,18 +4,11 @@ import Theme from "./theme";
 import Conflict from "./conflict";
 import StoryCharacter from "./story-character";
 import Setting from "./setting";
-import StoryWords from "./story-words";
 import Controls from "./controls";
 import themes from "../data/themes";
 import { givenNames, familyNames } from "../data/names";
 import { allWords } from "../data/words";
 import { locations, times } from "../data/settings.js";
-
-// const shuffle = (items) =>
-//   items
-//     .map((a) => ({ sort: Math.random(), value: a }))
-//     .sort((a, b) => a.sort - b.sort)
-//     .map((a) => a.value);
 
 const shuffle = (array) => {
   let currentIndex = array.length;
@@ -202,6 +195,17 @@ export default function Story(props) {
     }
   };
 
+  const handleRemoveCharacter = (e) => {
+    const { id } = e.currentTarget;
+    if (!id) console.log("no id");
+    const { characters } = { ...story };
+    characters.splice(id, 1);
+    setStory({
+      ...story,
+      characters,
+    });
+  };
+
   return (
     <StoryContainer>
       <Theme theme={story.theme} handleClick={handleClick} />
@@ -211,6 +215,7 @@ export default function Story(props) {
           character={character}
           key={`character-${idx}`}
           handleCharacter={handleCharacter}
+          handleRemoveCharacter={handleRemoveCharacter}
           idx={idx}
         />
       ))}
@@ -225,6 +230,7 @@ export default function Story(props) {
         handleAddSub={handleAddSub}
         handleReload={handleReload}
         handleOptions={handleOptions}
+        handleRemoveCharacter={handleRemoveCharacter}
       />
     </StoryContainer>
   );

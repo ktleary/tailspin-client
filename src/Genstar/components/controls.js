@@ -74,7 +74,11 @@ const ControlItem = styled.div`
 `;
 
 export default function Controls(props) {
-  const { handleAddSub, handleOptions, handleReload } = props;
+  const {
+    handleAddSub,
+    handleOptions,
+    handleReload,
+  } = props;
   return (
     <ControlsWrapper>
       <ControlItem>

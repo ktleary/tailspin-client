@@ -1,11 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { CloseIcon } from "./buttons/icons";
 
 const CharacterWrapper = styled.div`
   align-items: center;
   display: flex;
   height: 64px;
   padding-left: 16px;
+  &:hover {
+    background: #434950;
+  }
+`;
+const CloseButton = styled.button`
+  align-items: center;
+  background: #434950;
+  border: 1px solid rgba(255, 255, 255, 0.33);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.66);
+  cursor: pointer;
+  display: flex;
+  fill: rgba(255, 255, 255, 0.76);
+  height: 24px;
+  justify-content: center;
+  outline: 0;
+  width: 32px;
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+`;
+
+const ControlsCloseIcon = styled(CloseIcon)`
+  height: 18px;
+  width: 18px;
 `;
 
 const ProfilePictureCell = styled.div`
@@ -24,11 +50,6 @@ const NameCell = styled.div`
   }
 `;
 
-const ProfilePhoto = styled.img`
-  border-radius: 34px;
-  height: 48px;
-  width: 48px;
-`;
 
 const NameHolder = styled.div`
   display: block;
@@ -48,11 +69,26 @@ const WordCell = styled.div`
   }
 `;
 
+const CloseContainer = styled.div`
+  align-items: center;
+  height: 36px;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 16px;
+`;
+
 export default function StoryCharacter(props) {
-  const { character, handleCharacter, idx } = props;
+  const { character, handleCharacter, handleRemoveCharacter, idx } = props;
+  const [showClose, setShowClose] = useState(false);
+  const handleMouseEnter = () => setShowClose(true);
+  const handleMouseOut = () => setShowClose(false);
 
   return (
-    <CharacterWrapper>
+    <CharacterWrapper
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseOut}
+    >
       <ProfilePictureCell onClick={() => handleCharacter("image", idx)}>
         {character.image}
       </ProfilePictureCell>
@@ -76,6 +112,13 @@ export default function StoryCharacter(props) {
           ))}
         </NameRow>
       </NameHolder>
+      {showClose && (
+        <CloseContainer>
+          <CloseButton onClick={handleRemoveCharacter} id={idx}>
+            <ControlsCloseIcon />
+          </CloseButton>
+        </CloseContainer>
+      )}
     </CharacterWrapper>
   );
 }
