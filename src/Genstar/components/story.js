@@ -5,16 +5,31 @@ import Conflict from "./conflict";
 import StoryCharacter from "./story-character";
 import Setting from "./setting";
 import StoryWords from "./story-words";
+import Controls from "./controls";
 import themes from "../data/themes";
 import { givenNames, familyNames } from "../data/names";
 import { allWords } from "../data/words";
 import { locations, times } from "../data/settings.js";
 
-const shuffle = (items) =>
-  items
-    .map((a) => ({ sort: Math.random(), value: a }))
-    .sort((a, b) => a.sort - b.sort)
-    .map((a) => a.value);
+// const shuffle = (items) =>
+//   items
+//     .map((a) => ({ sort: Math.random(), value: a }))
+//     .sort((a, b) => a.sort - b.sort)
+//     .map((a) => a.value);
+
+const shuffle = (array) => {
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+};
 
 const conflicts = [
   "Character vs. Nature",
@@ -160,6 +175,33 @@ export default function Story(props) {
       characters,
     });
   };
+
+  const handleReload = () => {
+    setStory(new StoryLine({}));
+  };
+
+  const handleAddSub = (e) => {
+    const name = e.currentTarget.getAttribute("name");
+    if (!name) return;
+    const { characters } = { ...story };
+    name === "subtract"
+      ? characters.splice(-1, 1)
+      : characters.push(new Character({ idx: characters.length + 1 }));
+    setStory({
+      ...story,
+      characters,
+    });
+  };
+
+  const handleOptions = (e) => {
+    const name = e.currentTarget.getAttribute("name");
+    if (!name) return;
+    if (name === "setting") {
+      const { showSetting } = { ...options };
+      setOptions({ ...options, showSetting: !showSetting });
+    }
+  };
+
   return (
     <StoryContainer>
       <Theme theme={story.theme} handleClick={handleClick} />
@@ -179,6 +221,11 @@ export default function Story(props) {
           handleClick={handleClick}
         />
       )}
+      <Controls
+        handleAddSub={handleAddSub}
+        handleReload={handleReload}
+        handleOptions={handleOptions}
+      />
     </StoryContainer>
   );
 }

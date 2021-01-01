@@ -8,16 +8,22 @@ export const times = [
   "Storm season",
   "Fog season",
   "Dry season",
+  "Dot Com 90s",
+  "Roaring 20s",
+  "Apocalypse",
+  "Back to school",
+  "War drums",
+  "Vacation"
 ];
 
 export const locations = [
-  "Hometown",
+  "Bakersfield",
   "Westphalia",
   "Recreational Vehicle",
   "Olympics",
   "Carnival",
   "New England",
-  "College campus",
+  "College Campus",
   "Alaska",
   "Las Vegas",
   "Australia",
@@ -57,7 +63,6 @@ export const locations = [
   "Safari",
   "West Coast of Ireland",
   "Japan",
-  "las Vegas",
   "Rocky Mountains",
   "Liverpool",
   "California",

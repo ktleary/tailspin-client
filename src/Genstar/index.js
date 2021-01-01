@@ -5,10 +5,10 @@ import styled from "styled-components";
 
 import "./style/genstar.css";
 
-
-
 const GenstarWrapper = styled.div`
-  border: 1px solid rgba(255, 255, 255, 0.33);
+  background: #292929;
+  border: 1px solid rgba(255, 255, 255, 0);
+  outline: 1px solid rgba(255, 255, 255, 0.1);
   margin: auto;
   max-width: 444px;
   padding-bottom: 32px;

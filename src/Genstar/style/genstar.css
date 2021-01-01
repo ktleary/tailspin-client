@@ -1,9 +1,10 @@
 html, body {
-  background: #292929;
+  background: #000000;
   color: rgba(255, 255, 255, 1);
   font-family: Roboto, sans-serif;
   font-size: 16px;
   height: 100vh;
+  overflow-x: hidden;
   width: 100vw;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;

@@ -5,6 +5,7 @@ const SettingWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 16px;
+  padding-bottom: 0;
 `;
 
 const SettingItem = styled.div`

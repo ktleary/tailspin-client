@@ -5,14 +5,15 @@ const HeaderContainer = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.66);
   padding-left: 16px;
-  padding-top: 32px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   margin-bottom: 32px;
   max-width: 444px;
 `;
 
 const Title = styled.h1`
   font-family: Roboto, sans-serif;
-  font-size: 36px;
+  font-size: 32px;
   font-weight: normal;
   margin: 0;
   margin-bottom: 0px;
