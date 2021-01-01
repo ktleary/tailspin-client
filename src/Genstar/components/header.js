@@ -32,7 +32,7 @@ const Header = ({ title }) => (
   <HeaderContainer>
     <Title>{title}</Title>
     <Subtitle>
-      Stir the <Emphasis>plot</Emphasis>
+      Stir the plot.
     </Subtitle>
   </HeaderContainer>
 );

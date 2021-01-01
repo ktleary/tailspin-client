@@ -3,11 +3,12 @@ import styled from "styled-components";
 import Theme from "./theme";
 import Conflict from "./conflict";
 import StoryCharacter from "./story-character";
+import Setting from "./setting";
 import StoryWords from "./story-words";
 import themes from "../data/themes";
 import { givenNames, familyNames } from "../data/names";
-
 import { allWords } from "../data/words";
+import { locations, times } from "../data/settings.js";
 
 const shuffle = (items) =>
   items
@@ -30,7 +31,7 @@ const randomItems = (array, number = 1, currentItems = []) =>
     .filter((item) => !currentItems.includes(item))
     .slice(0, number);
 
-const getSetting = () => "Paris, France";
+const getLocation = () => randomItems(locations, 1);
 
 const ProfileImageWrapper = styled.div`
   height: 64px;
@@ -84,14 +85,14 @@ const randomInt = (min = 0, max = 99) =>
 const createProfileUrl = () => `/images/${randomInt()}.png`;
 
 class Character {
-  constructor({ givenName, familyName, image, idx }) {
+  constructor({ attributes, givenName, familyName, image, idx }) {
     this.givenName = givenName || randomItems(givenNames).join("");
     this.familyName = familyName || randomItems(familyNames).join("");
     this.idx = idx || -1;
     this.image = image || this.createImage();
+    this.attributes = attributes || randomItems(allWords, 2);
   }
   createImage() {
-    const random = randomInt();
     return createProfileImage({
       givenName: this.givenName,
       familyName: this.familyName,
@@ -102,15 +103,16 @@ class Character {
 }
 
 class StoryLine {
-  constructor({ theme, conflict, characters, words, setting }) {
+  constructor({ theme, conflict, characters, location, time }) {
     this.theme = theme || randomItems(themes).join("");
     this.conflict = conflict || randomItems(conflicts).join("");
     this.characters = characters || [
       new Character({ idx: 1 }),
       new Character({ idx: 2 }),
+      new Character({ idx: 3 }),
     ];
-    this.words = words || randomItems(allWords, 4);
-    this.setting = setting || getSetting(setting);
+    this.location = location || randomItems(locations, 1).join("");
+    this.time = time || randomItems(times, 1).join("");
   }
 }
 
@@ -127,10 +129,16 @@ const update = {
   familyName: (currentName) =>
     randomItems(familyNames, 1, currentName).join(""),
   image: (currentImage) => createProfileImage({ url: createProfileUrl() }),
+  attributes: (currentAttributes) =>
+    randomItems(allWords, 1, currentAttributes).join(""),
+  location: (currentLocation) =>
+    randomItems(locations, 1, currentLocation).join(""),
+  time: (currentTime) => randomItems(times, 1, currentTime).join(""),
 };
 
 export default function Story(props) {
   const [story, setStory] = useState(new StoryLine({}));
+  const [options, setOptions] = useState({ showSetting: false });
 
   const handleClick = (e) => {
     const name = e.currentTarget.getAttribute("name");
@@ -139,11 +147,14 @@ export default function Story(props) {
       [name]: update[name](story[name]),
     });
   };
-  const handleCharacter = (name, row) => {
+
+  const handleCharacter = (name, row, column) => {
     const { characters } = { ...story };
     const currentValue = characters[row][name];
     const updated = update[name](currentValue);
-    characters[row][name] = updated;
+    [0, 1].includes(column)
+      ? (characters[row][name][column] = updated)
+      : (characters[row][name] = updated);
     setStory({
       ...story,
       characters,
@@ -161,7 +172,13 @@ export default function Story(props) {
           idx={idx}
         />
       ))}
-      <StoryWords words={story.words} />
+      {options.showSetting && (
+        <Setting
+          time={story.time}
+          location={story.location}
+          handleClick={handleClick}
+        />
+      )}
     </StoryContainer>
   );
 }

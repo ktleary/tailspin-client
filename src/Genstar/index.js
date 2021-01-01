@@ -16,7 +16,7 @@ const GenstarWrapper = styled.div`
 `;
 
 export default function Genstar() {
-  const title = "Genstar";
+  const title = "Genstr";
   return (
     <GenstarWrapper>
       <Header title={title} />
