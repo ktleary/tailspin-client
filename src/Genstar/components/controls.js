@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {
   AddIcon,
   AddLocationIcon,
+  FamilyIcon,
   PersonIcon,
   ReloadIcon,
   SubtractIcon,
@@ -37,12 +38,9 @@ const ControlsLocationIcon = styled(AddLocationIcon)`
   width: 24px;
 `;
 
-const ControlsSubtractIcon = styled(SubtractIcon)`
-  color: rgba(255, 255, 255, 0.66);
-  fill: rgba(255, 255, 255, 0.66);
-  background: transparent;
-  height: 12px;
-  width: 12px;
+const ControlsFamilyIcon = styled(FamilyIcon)`
+  height: 24px;
+  width: 24px;
 `;
 
 const ReloadButton = styled.button`
@@ -60,30 +58,27 @@ const ReloadButton = styled.button`
   width: 56px;
   &:hover {
     fill: rgba(255, 255, 255, 1);
+    background: #434950;
   }
 `;
-
-const SubtractButton = styled(ReloadButton)``;
 
 const AddButton = styled(ReloadButton)``;
 
 const LocationButton = styled(ReloadButton)``;
+
+const FamilyButton = styled(ReloadButton)``;
 
 const ControlItem = styled.div`
   margin: auto 8px;
 `;
 
 export default function Controls(props) {
-  const {
-    handleAddSub,
-    handleOptions,
-    handleReload,
-  } = props;
+  const { handleAddSub, handleOptions, handleReload } = props;
   return (
     <ControlsWrapper>
       <ControlItem>
         <LocationButton
-          title="Add Setting"
+          title="Toggle Location"
           name="setting"
           onClick={handleOptions}
         >
@@ -91,23 +86,20 @@ export default function Controls(props) {
         </LocationButton>
       </ControlItem>
       <ControlItem>
-        <SubtractButton
-          title="Remove Character"
-          name="subtract"
-          onClick={handleAddSub}
+        <FamilyButton
+          title="Toggle Family Names"
+          name="family"
+          onClick={handleOptions}
         >
-          <ControlsPersonIcon />
-          <ControlsSubtractIcon />
-        </SubtractButton>
+          <ControlsFamilyIcon />
+        </FamilyButton>
       </ControlItem>
-
       <ControlItem>
         <AddButton title="Add Character" name="add" onClick={handleAddSub}>
           <ControlsPersonIcon />
           <ControlsAddIcon />
         </AddButton>
       </ControlItem>
-
       <ControlItem>
         <ReloadButton onClick={handleReload} title="Load New Story">
           <ControlsReloadIcon />

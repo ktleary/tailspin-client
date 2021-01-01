@@ -64,7 +64,6 @@ const ProfileInitials = styled.div`
 const ProfilePhoto = styled.img`
   border-radius: 24px;
   height: 48px;
-  margin-right: 12px;
   width: 48px;
 `;
 
@@ -146,7 +145,10 @@ const update = {
 
 export default function Story(props) {
   const [story, setStory] = useState(new StoryLine({}));
-  const [options, setOptions] = useState({ showSetting: false });
+  const [options, setOptions] = useState({
+    showFamily: true,
+    showSetting: false,
+  });
 
   const handleClick = (e) => {
     const name = e.currentTarget.getAttribute("name");
@@ -160,6 +162,7 @@ export default function Story(props) {
     const { characters } = { ...story };
     const currentValue = characters[row][name];
     const updated = update[name](currentValue);
+
     [0, 1].includes(column)
       ? (characters[row][name][column] = updated)
       : (characters[row][name] = updated);
@@ -193,6 +196,10 @@ export default function Story(props) {
       const { showSetting } = { ...options };
       setOptions({ ...options, showSetting: !showSetting });
     }
+    if (name === "family") {
+      const { showFamily } = { ...options };
+      setOptions({ ...options, showFamily: !showFamily });
+    }
   };
 
   const handleRemoveCharacter = (e) => {
@@ -216,6 +223,7 @@ export default function Story(props) {
           key={`character-${idx}`}
           handleCharacter={handleCharacter}
           handleRemoveCharacter={handleRemoveCharacter}
+          showFamily={options.showFamily}
           idx={idx}
         />
       ))}

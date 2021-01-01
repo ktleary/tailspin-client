@@ -35,10 +35,14 @@ const ControlsCloseIcon = styled(CloseIcon)`
 `;
 
 const ProfilePictureCell = styled.div`
+  border: 1px solid rgba(255, 255, 255, 0.33);
+  border-radius: 24px;
   cursor: pointer;
   height: 48px;
+  margin-right: 12px;
   &:hover {
     color: #64ffda;
+    border: 1px solid rgba(255, 255, 255, 1);
   }
 `;
 
@@ -49,7 +53,6 @@ const NameCell = styled.div`
     color: #64ffda;
   }
 `;
-
 
 const NameHolder = styled.div`
   display: block;
@@ -79,7 +82,13 @@ const CloseContainer = styled.div`
 `;
 
 export default function StoryCharacter(props) {
-  const { character, handleCharacter, handleRemoveCharacter, idx } = props;
+  const {
+    character,
+    handleCharacter,
+    handleRemoveCharacter,
+    idx,
+    showFamily,
+  } = props;
   const [showClose, setShowClose] = useState(false);
   const handleMouseEnter = () => setShowClose(true);
   const handleMouseOut = () => setShowClose(false);
@@ -97,9 +106,11 @@ export default function StoryCharacter(props) {
           <NameCell onClick={() => handleCharacter("givenName", idx)}>
             {character.givenName}
           </NameCell>
-          <NameCell onClick={() => handleCharacter("familyName", idx)}>
-            {character.familyName}
-          </NameCell>
+          {showFamily && (
+            <NameCell onClick={() => handleCharacter("familyName", idx)}>
+              {character.familyName}
+            </NameCell>
+          )}
         </NameRow>
         <NameRow>
           {character.attributes.map((attribute, j) => (

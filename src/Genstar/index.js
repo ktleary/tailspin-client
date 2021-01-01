@@ -11,7 +11,7 @@ const GenstarWrapper = styled.div`
   outline: 1px solid rgba(255, 255, 255, 0.1);
   margin: auto;
   max-width: 444px;
-  padding-bottom: 32px;
+  padding-bottom: 0px;
   width: 100%;
 `;
 
