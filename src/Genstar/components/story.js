@@ -52,7 +52,12 @@ const ProfileInitials = styled.div`
   width: 48px;
 `;
 
-const ProfilePhoto = styled.img``;
+const ProfilePhoto = styled.img`
+  border-radius: 24px;
+  height: 48px;
+  margin-right: 12px;
+  width: 48px;
+`;
 
 function createProfileImage({ url, givenName, familyName, idx }) {
   let image;
@@ -73,6 +78,9 @@ function createProfileImage({ url, givenName, familyName, idx }) {
   return <ProfileImageWrapper>{image}</ProfileImageWrapper>;
 }
 
+const randomInt = (min = 0, max = 99) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
 class Character {
   constructor({ givenName, familyName, image, idx }) {
     this.givenName = givenName || randomItems(givenNames).join("");
@@ -81,10 +89,13 @@ class Character {
     this.image = image || this.createImage();
   }
   createImage() {
+    const random = randomInt();
+    console.log({ random });
     return createProfileImage({
       givenName: this.givenName,
       familyName: this.familyName,
       idx: this.idx,
+      url: `/images/${randomInt()}.png`,
     });
   }
 }
@@ -114,6 +125,7 @@ const update = {
   givenName: (currentName) => randomItems(givenNames, 1, currentName).join(""),
   familyName: (currentName) =>
     randomItems(familyNames, 1, currentName).join(""),
+  image: (currentImage) => randomItems(),
 };
 
 export default function Story(props) {

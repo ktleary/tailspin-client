@@ -24,6 +24,12 @@ const NameCell = styled.div`
   }
 `;
 
+const ProfilePhoto = styled.img`
+  border-radius: 34px;
+  height: 48px;
+  width: 48px;
+`;
+
 export default function StoryCharacter(props) {
   const { character, handleCharacter, idx } = props;
   return (
