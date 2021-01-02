@@ -25,16 +25,10 @@ const Subtitle = styled.div`
   padding-left: 4px;
 `;
 
-const Emphasis = styled.span`
-  color: #39aca0;
-`;
-
 const Header = ({ title }) => (
   <HeaderContainer>
     <Title>{title}</Title>
-    <Subtitle>
-      Stir the plot.
-    </Subtitle>
+    <Subtitle>Stir the plot.</Subtitle>
   </HeaderContainer>
 );
 

@@ -31,15 +31,10 @@ const conflicts = [
   "Character vs. Society",
 ];
 
-// const randomNewElement = (arr, currentEl) =>
-//   arr.filter((el) => el !== currentEl)[Math.floor(Math.random() * arr.length)];
-
 const randomItems = (array, number = 1, currentItems = []) =>
   shuffle(array)
     .filter((item) => !currentItems.includes(item))
     .slice(0, number);
-
-const getLocation = () => randomItems(locations, 1);
 
 const ProfileImageWrapper = styled.div`
   height: 64px;

@@ -6,7 +6,6 @@ import {
   FamilyIcon,
   PersonIcon,
   ReloadIcon,
-  SubtractIcon,
 } from "./buttons/icons";
 
 const ControlsWrapper = styled.div`

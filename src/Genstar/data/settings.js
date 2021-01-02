@@ -13,10 +13,20 @@ export const times = [
   "Apocalypse",
   "Back to school",
   "War drums",
-  "Vacation"
+  "Vacation",
 ];
 
 export const locations = [
+  "Road Trip",
+  "Iowa City",
+  "Upstate New York",
+  "Amsterdam",
+  "Paris",
+  "Barcelona",
+  "Georgia",
+  "Cape Town",
+  "Music Festival",
+  "Grocery Store",
   "Bakersfield",
   "Westphalia",
   "Recreational Vehicle",

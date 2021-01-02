@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./components/header";
 import Story from "./components/story";
 import styled from "styled-components";
