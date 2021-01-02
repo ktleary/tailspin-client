@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 const ThemeWrapper = styled.div`
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(17, 17, 18, 1);
   padding: 16px 16px;
+
 `;
 
 const ThemeTitle = styled.div`

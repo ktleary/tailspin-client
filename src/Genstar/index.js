@@ -6,11 +6,8 @@ import styled from "styled-components";
 import "./style/genstar.css";
 
 const GenstarWrapper = styled.div`
-  background: #292929;
-  border: 1px solid rgba(255, 255, 255, 0);
-  outline: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 1);
   margin: auto;
-  max-width: 444px;
   padding-bottom: 0px;
   width: 100%;
 `;

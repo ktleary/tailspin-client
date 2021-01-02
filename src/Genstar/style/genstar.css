@@ -1,5 +1,6 @@
-html, body {
-  background: #212121;
+html,
+body {
+  background: rgba(0, 0, 0, 1);
   color: rgba(255, 255, 255, 1);
   font-family: Roboto, sans-serif;
   font-size: 16px;
@@ -7,7 +8,6 @@ html, body {
   overflow-x: hidden;
   width: 100vw;
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-

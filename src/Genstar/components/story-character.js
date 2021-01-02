@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CloseIcon } from "./buttons/icons";
 
 const CharacterWrapper = styled.div`
+  background: rgba(17, 17, 18, 1);
   align-items: center;
   display: flex;
   height: 64px;
@@ -56,7 +57,10 @@ const NameCell = styled.div`
 
 const NameHolder = styled.div`
   display: block;
+  padding-top: 6px;
+  vertical-align: middle;
 `;
+
 const NameRow = styled.div`
   display: flex;
 `;

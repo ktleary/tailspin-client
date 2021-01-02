@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const HeaderContainer = styled.div`
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(255, 255, 255, 1);
   padding-left: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -13,22 +12,17 @@ const HeaderContainer = styled.div`
 
 const Title = styled.h1`
   font-family: Roboto, sans-serif;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: normal;
   margin: 0;
   margin-bottom: 0px;
   padding: 0;
 `;
 
-const Subtitle = styled.div`
-  font-size: 16px;
-  padding-left: 4px;
-`;
 
 const Header = ({ title }) => (
   <HeaderContainer>
-    <Title>{title}</Title>
-    <Subtitle>Stir the plot.</Subtitle>
+    <Title>Genster</Title>
   </HeaderContainer>
 );
 

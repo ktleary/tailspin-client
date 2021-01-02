@@ -9,14 +9,15 @@ import {
 } from "./buttons/icons";
 
 const ControlsWrapper = styled.div`
-  background: #292929;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(17, 17, 18, 1);
+
   display: flex;
-  justify-content: flex-end;
-  margin: 16px 0;
+  justify-content: space-around;
+  margin: 0;
   padding: 16px;
-  padding-right: 0;
-  padding-bottom: 0;
+  padding-left: 8px;
+  padding-bottom: 16px;
+  padding-top: 16px;
 `;
 
 const ControlsReloadIcon = styled(ReloadIcon)`
@@ -44,8 +45,8 @@ const ControlsFamilyIcon = styled(FamilyIcon)`
 
 const ReloadButton = styled.button`
   align-items: center;
-  background: #2f353d;
-  border: 1px solid rgba(255, 255, 255, 0.33);
+  background: rgba(23, 23, 24, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.87);
   cursor: pointer;

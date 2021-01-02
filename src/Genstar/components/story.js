@@ -10,6 +10,12 @@ import { givenNames, familyNames } from "../data/names";
 import { allWords } from "../data/words";
 import { locations, times } from "../data/settings.js";
 
+const StoryContainer = styled.div`
+  background: rgba(17, 17, 18, 1);
+  margin: 0 auto;
+  max-width: 444px;
+`;
+
 const shuffle = (array) => {
   let currentIndex = array.length;
   let temporaryValue;
@@ -118,11 +124,6 @@ class StoryLine {
   }
 }
 
-const StoryContainer = styled.div`
-  background: #2f353d;
-  margin: 0 16px;
-`;
-
 const update = {
   theme: (currentTheme) => randomItems(themes, 1, currentTheme).join(""),
   conflict: (currentConflict) =>
@@ -222,13 +223,12 @@ export default function Story(props) {
           idx={idx}
         />
       ))}
-      {options.showSetting && (
-        <Setting
-          time={story.time}
-          location={story.location}
-          handleClick={handleClick}
-        />
-      )}
+      <Setting
+        time={story.time}
+        location={story.location}
+        handleClick={handleClick}
+        showSetting={options.showSetting}
+      />
       <Controls
         handleAddSub={handleAddSub}
         handleReload={handleReload}

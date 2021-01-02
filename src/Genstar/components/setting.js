@@ -2,14 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 const SettingWrapper = styled.div`
+  align-items: center;
+  background: rgba(17, 17, 18, 1);
+
   display: flex;
+  height: 16px;
   justify-content: flex-start;
-  padding: 16px;
-  padding-bottom: 0;
+  padding: 16px 20px;
 `;
 
 const SettingItem = styled.div`
-  color: rgba(255, 255, 255, 0.66);
   cursor: pointer;
   font-size: 90%;
   margin-right: 4px;
@@ -19,15 +21,20 @@ const SettingItem = styled.div`
 `;
 
 export default function Setting(props) {
-  const { handleClick, location, time } = props;
+  const { handleClick, location, showSetting, time } = props;
+
   return (
     <SettingWrapper>
-      <SettingItem name="time" onClick={handleClick}>
-        {time},
-      </SettingItem>
-      <SettingItem name="location" onClick={handleClick}>
-        {location}
-      </SettingItem>
+      {showSetting && (
+        <>
+          <SettingItem name="time" onClick={handleClick}>
+            {time},
+          </SettingItem>
+          <SettingItem name="location" onClick={handleClick}>
+            {location}
+          </SettingItem>
+        </>
+      )}
     </SettingWrapper>
   );
 }
