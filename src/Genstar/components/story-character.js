@@ -9,13 +9,13 @@ const CharacterWrapper = styled.div`
   height: 64px;
   padding-left: 16px;
   &:hover {
-    background: #434950;
+    background: rgba(23, 23, 24, 1);
   }
 `;
 const CloseButton = styled.button`
   align-items: center;
-  background: #434950;
-  border: 1px solid rgba(255, 255, 255, 0.33);
+  background: rgba(23, 23, 24, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.66);
   cursor: pointer;
@@ -26,7 +26,7 @@ const CloseButton = styled.button`
   outline: 0;
   width: 32px;
   &:hover {
-    color: rgba(255, 255, 255, 1);
+    color: rgba(23, 23, 24, 1);
   }
 `;
 
@@ -43,7 +43,7 @@ const ProfilePictureCell = styled.div`
   margin-right: 12px;
   &:hover {
     color: #64ffda;
-    border: 1px solid rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 255, 255, 0.66);
   }
 `;
 

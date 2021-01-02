@@ -10,14 +10,13 @@ import {
 
 const ControlsWrapper = styled.div`
   background: rgba(17, 17, 18, 1);
-
   display: flex;
   justify-content: space-around;
   margin: 0;
   padding: 16px;
   padding-left: 8px;
   padding-bottom: 16px;
-  padding-top: 16px;
+  padding-top: 8px;
 `;
 
 const ControlsReloadIcon = styled(ReloadIcon)`
@@ -58,7 +57,7 @@ const ReloadButton = styled.button`
   width: 56px;
   &:hover {
     fill: rgba(255, 255, 255, 1);
-    background: #434950;
+    background: rgba(30, 30, 31, 1);
   }
 `;
 

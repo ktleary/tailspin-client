@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const ThemeWrapper = styled.div`
   background: rgba(17, 17, 18, 1);
-  padding: 16px 16px;
+  padding: 16px 16px 8px 18px;
 
 `;
 

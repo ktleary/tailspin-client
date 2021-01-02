@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const ConflictWrapper = styled.div`
   background: rgba(17, 17, 18, 1);
-  padding: 0px 16px 16px 16px;
+  padding: 0px 16px 16px 18px;
 
 `;
 
