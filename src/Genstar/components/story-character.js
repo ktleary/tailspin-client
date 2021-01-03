@@ -9,12 +9,12 @@ const CharacterWrapper = styled.div`
   height: 64px;
   padding-left: 16px;
   &:hover {
-    background: rgba(23, 23, 24, 1);
+    background: rgba(30, 30, 31, 1);
   }
 `;
 const CloseButton = styled.button`
   align-items: center;
-  background: rgba(23, 23, 24, 1);
+  background: rgba(30, 30, 31, 1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.66);
@@ -26,13 +26,13 @@ const CloseButton = styled.button`
   outline: 0;
   width: 32px;
   &:hover {
-    color: rgba(23, 23, 24, 1);
+    color: rgba(255, 255, 255, 1);
   }
 `;
 
 const ControlsCloseIcon = styled(CloseIcon)`
-  height: 18px;
-  width: 18px;
+  height: 24px;
+  width: 24px;
 `;
 
 const ProfilePictureCell = styled.div`
@@ -48,7 +48,9 @@ const ProfilePictureCell = styled.div`
 `;
 
 const NameCell = styled.div`
+  color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
+  font-size: 18px;
   margin-right: 6px;
   &:hover {
     color: #64ffda;
@@ -66,9 +68,9 @@ const NameRow = styled.div`
 `;
 
 const WordCell = styled.div`
-  color: rgba(255, 255, 255, 0.76);
+  color: rgba(255, 255, 255, 0.66);
   cursor: pointer;
-  font-size: 76%;
+  font-size: 14px;
   font-style: italic;
   padding: 4px 2px;
   &:hover {

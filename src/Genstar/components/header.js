@@ -2,12 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 const HeaderContainer = styled.div`
-  color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 0.87);
   padding-left: 16px;
   padding-top: 16px;
   padding-bottom: 8px;
   margin-bottom: 32px;
-  max-width: 444px;
+  width: 100%;
+  @media (max-width: 444px) {
+    padding-left: 0px;
+  }
 `;
 
 const Title = styled.h1`
@@ -20,14 +23,15 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.div`
+  color: rgba(255, 255, 255, 0.66);
   font-size: 14px;
   padding-left: 0px;
 `;
 
 const Header = ({ title }) => (
   <HeaderContainer>
-    <Title>Genster</Title>
-    <Subtitle>Stir the plot.</Subtitle>
+    <Title>Genstar</Title>
+    {/* <Subtitle>Stir the plot.</Subtitle> */}
   </HeaderContainer>
 );
 export default Header;

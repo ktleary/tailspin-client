@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Theme from "./theme";
 import Conflict from "./conflict";
@@ -14,6 +14,9 @@ const StoryContainer = styled.div`
   background: rgba(17, 17, 18, 1);
   margin: 0 auto;
   max-width: 444px;
+  @media (max-width: 444px) {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 `;
 
 const shuffle = (array) => {
@@ -87,10 +90,26 @@ function createProfileImage({ url, givenName, familyName, idx }) {
   return <ProfileImageWrapper>{image}</ProfileImageWrapper>;
 }
 
-const randomInt = (min = 1, max = 99) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+const randomInt = (min = 1, max = 161) =>
+  (Math.floor(Math.pow(10, 14) * Math.random() * Math.random()) %
+    (max - min + 1)) +
+  min;
 
-const createProfileUrl = () => `/images/${randomInt()}.png`;
+const createProfileUrl = () => {
+  let url;
+  const hostname = window && window.location && window.location.hostname;
+  if (hostname === "stringtalk.org") {
+    url = `/genster/images/${randomInt()}.png`;
+  } else if (hostname === "localhost") {
+    url = `./images/${randomInt()}.png`;
+  }
+  return url;
+};
+
+function checkHost() {
+  const hostname = window && window.location && window.location.hostname;
+  return hostname !== "localhost" ? "/genster" : "";
+}
 
 class Character {
   constructor({ attributes, givenName, familyName, image, idx }) {
@@ -105,7 +124,7 @@ class Character {
       givenName: this.givenName,
       familyName: this.familyName,
       idx: this.idx,
-      url: `/images/${randomInt()}.png`,
+      url: `${checkHost()}/images/${randomInt()}.png`,
     });
   }
 }
@@ -208,6 +227,14 @@ export default function Story(props) {
       characters,
     });
   };
+
+  useEffect(() => {
+    const { body } = window.document;
+    body.addEventListener("touchstart", () => {});
+    body.addEventListener("touchend", () => {});
+    body.addEventListener("touchcancel", () => {});
+    body.addEventListener("touchmove", () => {});
+  }, []);
 
   return (
     <StoryContainer>

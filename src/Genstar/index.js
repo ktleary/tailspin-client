@@ -12,12 +12,19 @@ const GenstarWrapper = styled.div`
   width: 100%;
 `;
 
+const Shim = styled.div`
+  background: rgba(0, 0, 0, 1);
+  padding: 0 16px;
+`;
+
 export default function Genstar() {
   const title = "Genstr";
   return (
-    <GenstarWrapper>
-      <Header title={title} />
-      <Story />
-    </GenstarWrapper>
+    <Shim>
+      <GenstarWrapper>
+        <Header title={title} />
+        <Story />
+      </GenstarWrapper>
+    </Shim>
   );
 }

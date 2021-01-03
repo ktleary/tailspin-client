@@ -9,14 +9,12 @@ import {
 } from "./buttons/icons";
 
 const ControlsWrapper = styled.div`
-  background: rgba(17, 17, 18, 1);
+  align-items: center;
+  background: rgba(23, 23, 24, 1);
   display: flex;
   justify-content: space-around;
   margin: 0;
-  padding: 16px;
-  padding-left: 8px;
-  padding-bottom: 16px;
-  padding-top: 8px;
+  padding: 8px 8px;
 `;
 
 const ControlsReloadIcon = styled(ReloadIcon)`
@@ -26,6 +24,7 @@ const ControlsReloadIcon = styled(ReloadIcon)`
 
 const ControlsAddIcon = styled(AddIcon)`
   height: 12px;
+  margin-left: -2px;
   width: 12px;
 `;
 const ControlsPersonIcon = styled(PersonIcon)`
@@ -45,7 +44,7 @@ const ControlsFamilyIcon = styled(FamilyIcon)`
 const ReloadButton = styled.button`
   align-items: center;
   background: rgba(23, 23, 24, 1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(23, 23, 24, 0.1);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
@@ -56,8 +55,10 @@ const ReloadButton = styled.button`
   outline: 0;
   width: 56px;
   &:hover {
-    fill: rgba(255, 255, 255, 1);
     background: rgba(30, 30, 31, 1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 1);
+    fill: rgba(255, 255, 255, 1);
   }
 `;
 
@@ -76,31 +77,23 @@ export default function Controls(props) {
   return (
     <ControlsWrapper>
       <ControlItem>
-        <LocationButton
-          title="Toggle Location"
-          name="setting"
-          onClick={handleOptions}
-        >
+        <LocationButton name="setting" onClick={handleOptions}>
           <ControlsLocationIcon />
         </LocationButton>
       </ControlItem>
       <ControlItem>
-        <FamilyButton
-          title="Toggle Family Names"
-          name="family"
-          onClick={handleOptions}
-        >
+        <FamilyButton name="family" onClick={handleOptions}>
           <ControlsFamilyIcon />
         </FamilyButton>
       </ControlItem>
       <ControlItem>
-        <AddButton title="Add Character" name="add" onClick={handleAddSub}>
+        <AddButton name="add" onClick={handleAddSub}>
           <ControlsPersonIcon />
           <ControlsAddIcon />
         </AddButton>
       </ControlItem>
       <ControlItem>
-        <ReloadButton onClick={handleReload} title="Load New Story">
+        <ReloadButton onClick={handleReload}>
           <ControlsReloadIcon />
         </ReloadButton>
       </ControlItem>

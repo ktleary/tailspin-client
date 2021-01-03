@@ -7,7 +7,7 @@ const ConflictWrapper = styled.div`
 `;
 
 const ConflictTitle = styled.div`
-  color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
   font-size: 16px;
   &:hover{
