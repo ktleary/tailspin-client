@@ -13,7 +13,6 @@ const StoryWord = styled.div`
   font-style: italic;
   justify-content: left;
   padding: 0 8px 0 0;
-
 `;
 
 export default function StoryWords({ words }) {

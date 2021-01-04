@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Theme from "./theme";
 import Conflict from "./conflict";
@@ -9,6 +9,9 @@ import themes from "../data/themes";
 import { givenNames, familyNames } from "../data/names";
 import { allWords } from "../data/words";
 import { locations, times } from "../data/settings.js";
+import { randomInt, randomItems } from "../util/sort";
+import { getEnv } from "../util/env";
+import { conflicts } from "../constants";
 
 const StoryContainer = styled.div`
   background: rgba(17, 17, 18, 1);
@@ -19,50 +22,8 @@ const StoryContainer = styled.div`
   }
 `;
 
-const shuffle = (array) => {
-  let currentIndex = array.length;
-  let temporaryValue;
-  let randomIndex;
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-  return array;
-};
-
-const conflicts = [
-  "Character vs. Nature",
-  "Character vs. Self",
-  "Character vs. Machine",
-  "Character vs. Society",
-];
-
-const randomItems = (array, number = 1, currentItems = []) =>
-  shuffle(array)
-    .filter((item) => !currentItems.includes(item))
-    .slice(0, number);
-
 const ProfileImageWrapper = styled.div`
   height: 64px;
-`;
-
-const ProfileInitials = styled.div`
-  background-color: #64b5f6;
-  border-radius: 30px;
-  color: rgba(255, 255, 255, 0.87);
-  display: inline-flex;
-  font-size: 24px;
-  height: 48px;
-  justify-content: center;
-  line-height: 48px;
-  margin-right: 16px;
-  text-align: center;
-  text-transform: uppercase;
-  vertical-align: middle;
-  width: 48px;
 `;
 
 const ProfilePhoto = styled.img`
@@ -71,45 +32,17 @@ const ProfilePhoto = styled.img`
   width: 48px;
 `;
 
-function createProfileImage({ url, givenName, familyName, idx }) {
-  let image;
-  if (!url && (givenName || familyName)) {
-    const letter1 = givenName && givenName.charAt(0);
-    const letter2 = familyName && familyName.charAt(0);
-    image = (
-      <ProfileInitials>
-        {letter1}
-        {letter2}
-      </ProfileInitials>
-    );
-  }
-  if (url) {
-    image = <ProfilePhoto src={url} />;
-  }
-
-  return <ProfileImageWrapper>{image}</ProfileImageWrapper>;
-}
-
-const randomInt = (min = 1, max = 161) =>
-  (Math.floor(Math.pow(10, 14) * Math.random() * Math.random()) %
-    (max - min + 1)) +
-  min;
+const createProfileImage = ({ url }) => (
+  <ProfileImageWrapper>
+    <ProfilePhoto src={url} />
+  </ProfileImageWrapper>
+);
 
 const createProfileUrl = () => {
-  let url;
-  const hostname = window && window.location && window.location.hostname;
-  if (hostname === "stringtalk.org") {
-    url = `/genster/images/${randomInt()}.png`;
-  } else if (hostname === "localhost") {
-    url = `./images/${randomInt()}.png`;
-  }
-  return url;
+  const path = getEnv();
+  const random = randomInt();
+  return `${path}/images/${random}.png`;
 };
-
-function checkHost() {
-  const hostname = window && window.location && window.location.hostname;
-  return hostname !== "localhost" ? "/genster" : "";
-}
 
 class Character {
   constructor({ attributes, givenName, familyName, image, idx }) {
@@ -119,14 +52,10 @@ class Character {
     this.image = image || this.createImage();
     this.attributes = attributes || randomItems(allWords, 2);
   }
-  createImage() {
-    return createProfileImage({
-      givenName: this.givenName,
-      familyName: this.familyName,
-      idx: this.idx,
-      url: `${checkHost()}/images/${randomInt()}.png`,
+  createImage = () =>
+    createProfileImage({
+      url: createProfileUrl(),
     });
-  }
 }
 
 class StoryLine {
@@ -227,14 +156,6 @@ export default function Story(props) {
       characters,
     });
   };
-
-  useEffect(() => {
-    const { body } = window.document;
-    body.addEventListener("touchstart", () => {});
-    body.addEventListener("touchend", () => {});
-    body.addEventListener("touchcancel", () => {});
-    body.addEventListener("touchmove", () => {});
-  }, []);
 
   return (
     <StoryContainer>
