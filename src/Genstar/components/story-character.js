@@ -11,7 +11,6 @@ const CharacterWrapper = styled.div`
   &:hover {
     background: rgba(30, 30, 31, 1);
   }
-
 `;
 
 const ProfilePictureCell = styled.div`
@@ -111,7 +110,7 @@ export default function StoryCharacter(props) {
       </NameHolder>
       {showClose && (
         <CloseContainer>
-          <CloseButton idx={idx} handleClick={handleRemoveCharacter} />
+         <CloseButton idx={idx} handleClick={handleRemoveCharacter} />
         </CloseContainer>
       )}
     </CharacterWrapper>
