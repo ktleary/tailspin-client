@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Theme from "./theme";
+import Character from "./character";
 import Conflict from "./conflict";
 import StoryCharacter from "./story-character";
 import Setting from "./setting";
 import Controls from "./controls";
+import ProfileImage from "./profile-image";
 import themes from "../data/themes";
-import { givenNames, familyNames } from "../data/names";
-import { allWords } from "../data/words";
+
+import {
+  getRandomAllWords,
+  getRandomGivens,
+  getRandomFamilies,
+  getRandomLocations,
+  getRandomThemes,
+  getRandomTimes,
+} from "../util/data";
 import { locations, times } from "../data/settings.js";
-import { randomInt, randomItems } from "../util/sort";
-import { getEnv } from "../util/env";
+import { randomItems } from "../util/sort";
 import { conflicts } from "../constants";
 
 const StoryContainer = styled.div`
@@ -21,42 +29,6 @@ const StoryContainer = styled.div`
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 `;
-
-const ProfileImageWrapper = styled.div`
-  height: 56px;
-`;
-
-const ProfilePhoto = styled.img`
-  border-radius: 28px;
-  height: 56px;
-  width: 56px;
-`;
-
-const createProfileImage = ({ url }) => (
-  <ProfileImageWrapper>
-    <ProfilePhoto src={url} />
-  </ProfileImageWrapper>
-);
-
-const createProfileUrl = () => {
-  const path = getEnv();
-  const random = randomInt();
-  return `${path}/images/${random}.png`;
-};
-
-class Character {
-  constructor({ attributes, givenName, familyName, image, idx }) {
-    this.givenName = givenName || randomItems(givenNames).join("");
-    this.familyName = familyName || randomItems(familyNames).join("");
-    this.idx = idx || -1;
-    this.image = image || this.createImage();
-    this.attributes = attributes || randomItems(allWords, 2);
-  }
-  createImage = () =>
-    createProfileImage({
-      url: createProfileUrl(),
-    });
-}
 
 class StoryLine {
   constructor({ theme, conflict, characters, location, time }) {
@@ -73,18 +45,21 @@ class StoryLine {
 }
 
 const update = {
-  theme: (currentTheme) => randomItems(themes, 1, currentTheme).join(""),
+  theme: (currentTheme) =>
+    getRandomThemes({ number: 1, current: currentTheme }).join(""),
   conflict: (currentConflict) =>
     randomItems(conflicts, 1, currentConflict).join(""),
-  givenName: (currentName) => randomItems(givenNames, 1, currentName).join(""),
+  givenName: (currentName) =>
+    getRandomGivens({ number: 1, current: currentName }).join(""),
   familyName: (currentName) =>
-    randomItems(familyNames, 1, currentName).join(""),
-  image: (currentImage) => createProfileImage({ url: createProfileUrl() }),
+    getRandomFamilies({ number: 1, current: currentName }).join(""),
+  image: (currentImage) => <ProfileImage currentImage={currentImage} />,
   attributes: (currentAttributes) =>
-    randomItems(allWords, 1, currentAttributes).join(""),
+    getRandomAllWords({ number: 1, current: currentAttributes }).join(""),
   location: (currentLocation) =>
-    randomItems(locations, 1, currentLocation).join(""),
-  time: (currentTime) => randomItems(times, 1, currentTime).join(""),
+    getRandomLocations({ number: 1, current: currentLocation }).join(""),
+  time: (currentTime) =>
+    getRandomTimes({ number: 1, current: currentTime }).join(""),
 };
 
 export default function Story(props) {
