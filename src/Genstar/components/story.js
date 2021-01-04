@@ -119,13 +119,17 @@ export default function Story(props) {
   };
 
   useEffect(() => {
-    const path = getEnv();
-    let i = 161;
-    while (i >= 0) {
-      const imghld = new Image();
-      imghld.src = `${path}/images/${i}.png`;
-      i--;
+    function preloadImages() {
+      const path = getEnv();
+      let i = 161;
+      while (i > 0) {
+        const imghld = new Image();
+        imghld.src = `${path}/images/${i}.png`;
+        i--;
+      }
     }
+
+    preloadImages();
   }, []);
 
   return (

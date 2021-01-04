@@ -5,4 +5,4 @@ export const conflicts = [
   "Character vs. Society",
 ];
 
-export const remotePath = "https://stringtalk.org/genstar";
+export const remotePath = "/genstar";

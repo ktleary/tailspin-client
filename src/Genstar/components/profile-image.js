@@ -19,7 +19,7 @@ const createProfileUrl = () => {
   return `${path}/images/${random}.png`;
 };
 
-const ProfileImage = () => (
+const ProfileImage = (src) => (
   <ProfileImageWrapper>
     <ProfilePhoto src={createProfileUrl()} />
   </ProfileImageWrapper>
