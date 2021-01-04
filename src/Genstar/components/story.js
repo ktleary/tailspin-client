@@ -7,7 +7,7 @@ import StoryCharacter from "./story-character";
 import Setting from "./setting";
 import Controls from "./controls";
 import ProfileImage from "./profile-image";
-import { getEnv } from "../util/env";
+
 import {
   getRandomAllWords,
   getRandomConflicts,
@@ -118,19 +118,6 @@ export default function Story(props) {
     });
   };
 
-  useEffect(() => {
-    function preloadImages() {
-      const path = getEnv();
-      let i = 161;
-      while (i > 0) {
-        const imghld = new Image();
-        imghld.src = `${path}/images/${i}.png`;
-        i--;
-      }
-    }
-
-    preloadImages();
-  }, []);
 
   return (
     <StoryContainer>
