@@ -9,7 +9,7 @@ const ThemeWrapper = styled.div`
 const ThemeTitle = styled.div`
   color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
-  font-size: 32px;
+  font-size: 24px;
   &:hover{
     color: #64ffda;
   }

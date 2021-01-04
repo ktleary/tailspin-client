@@ -9,7 +9,7 @@ const ConflictWrapper = styled.div`
 const ConflictTitle = styled.div`
   color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
-  font-size: 24px;
+  font-size: 18px;
   &:hover{
     color: #64ffda;
   }

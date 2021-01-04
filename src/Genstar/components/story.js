@@ -107,7 +107,7 @@ export default function Story(props) {
     const currentValue = characters[row][name];
     const updated = update[name](currentValue);
 
-    [0, 1].includes(column)
+    column !== undefined
       ? (characters[row][name][column] = updated)
       : (characters[row][name] = updated);
     setStory({

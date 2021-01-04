@@ -51,7 +51,7 @@ const ProfilePictureCell = styled.div`
 const NameCell = styled.div`
   color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
-  font-size: 24px;
+  font-size: 20px;
   margin-right: 6px;
   &:hover {
     color: #64ffda;
@@ -71,7 +71,7 @@ const NameRow = styled.div`
 const WordCell = styled.div`
   color: rgba(255, 255, 255, 0.66);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   font-style: italic;
   padding: 4px 2px;
   &:hover {

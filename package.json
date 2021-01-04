@@ -35,7 +35,7 @@
   "private": true,
   "scripts": {
     "build": "react-scripts build",
-    "build_prod": "PUBLIC_URL=https://stringtalk.org/genster/ react-scripts build",
+    "build_prod": "PUBLIC_URL=https://stringtalk.org/genstar/ react-scripts build",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test",
