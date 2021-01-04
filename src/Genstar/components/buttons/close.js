@@ -7,18 +7,21 @@ const ControlsCloseIcon = styled(CloseIcon)`
 `;
 
 const Close = styled.button`
+  align-items: center;
   background: rgba(30, 30, 31, 1);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
+  border-radius: 8px;
   color: rgba(255, 255, 255, 0.66);
   cursor: pointer;
   fill: rgba(255, 255, 255, 0.76);
   height: 32px;
-  justify-content: center;
+  line-height: 50%;
   outline: 0;
+  padding: 0;
+  text-align: center;
   width: 32px;
   &:hover {
-    color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 0.87);
   }
 `;
 
