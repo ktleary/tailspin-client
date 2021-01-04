@@ -6,7 +6,7 @@ const CharacterWrapper = styled.div`
   background: rgba(17, 17, 18, 1);
   align-items: center;
   display: flex;
-  height: 64px;
+  height: 72px;
   padding-left: 16px;
   &:hover {
     background: rgba(30, 30, 31, 1);
@@ -21,7 +21,7 @@ const CloseButton = styled.button`
   cursor: pointer;
   display: flex;
   fill: rgba(255, 255, 255, 0.76);
-  height: 24px;
+  height: 32px;
   justify-content: center;
   outline: 0;
   width: 32px;
@@ -37,9 +37,10 @@ const ControlsCloseIcon = styled(CloseIcon)`
 
 const ProfilePictureCell = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.33);
-  border-radius: 24px;
+  border-radius: 28px;
   cursor: pointer;
-  height: 48px;
+  height: 56px;
+  width: 56px;
   margin-right: 12px;
   &:hover {
     color: #64ffda;
@@ -50,7 +51,7 @@ const ProfilePictureCell = styled.div`
 const NameCell = styled.div`
   color: rgba(255, 255, 255, 0.87);
   cursor: pointer;
-  font-size: 18px;
+  font-size: 24px;
   margin-right: 6px;
   &:hover {
     color: #64ffda;
@@ -70,7 +71,7 @@ const NameRow = styled.div`
 const WordCell = styled.div`
   color: rgba(255, 255, 255, 0.66);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   font-style: italic;
   padding: 4px 2px;
   &:hover {

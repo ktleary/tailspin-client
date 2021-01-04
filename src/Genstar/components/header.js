@@ -15,7 +15,7 @@ const HeaderContainer = styled.div`
 
 const Title = styled.h1`
   font-family: Roboto, sans-serif;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: normal;
   margin: 0;
   margin-bottom: 2px;

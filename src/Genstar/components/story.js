@@ -23,13 +23,13 @@ const StoryContainer = styled.div`
 `;
 
 const ProfileImageWrapper = styled.div`
-  height: 64px;
+  height: 56px;
 `;
 
 const ProfilePhoto = styled.img`
-  border-radius: 24px;
-  height: 48px;
-  width: 48px;
+  border-radius: 28px;
+  height: 56px;
+  width: 56px;
 `;
 
 const createProfileImage = ({ url }) => (
