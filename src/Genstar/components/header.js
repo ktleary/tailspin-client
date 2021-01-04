@@ -22,11 +22,11 @@ const Title = styled.h1`
   padding: 0;
 `;
 
-const Subtitle = styled.div`
-  color: rgba(255, 255, 255, 0.66);
-  font-size: 14px;
-  padding-left: 0px;
-`;
+// const Subtitle = styled.div`
+//   color: rgba(255, 255, 255, 0.66);
+//   font-size: 14px;
+//   padding-left: 0px;
+// `;
 
 const Header = ({ title }) => (
   <HeaderContainer>
