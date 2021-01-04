@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Theme from "./theme";
 import Character from "./character";
@@ -7,6 +7,7 @@ import StoryCharacter from "./story-character";
 import Setting from "./setting";
 import Controls from "./controls";
 import ProfileImage from "./profile-image";
+import { getEnv } from "../util/env";
 import {
   getRandomAllWords,
   getRandomConflicts,
@@ -116,6 +117,16 @@ export default function Story(props) {
       characters,
     });
   };
+
+  useEffect(() => {
+    const path = getEnv();
+    let i = 161;
+    while (i >= 0) {
+      const imghld = new Image();
+      imghld.src = `${path}/images/${i}.png`;
+      i--;
+    }
+  }, []);
 
   return (
     <StoryContainer>
