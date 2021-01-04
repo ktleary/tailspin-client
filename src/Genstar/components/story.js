@@ -7,19 +7,15 @@ import StoryCharacter from "./story-character";
 import Setting from "./setting";
 import Controls from "./controls";
 import ProfileImage from "./profile-image";
-import themes from "../data/themes";
-
 import {
   getRandomAllWords,
+  getRandomConflicts,
   getRandomGivens,
   getRandomFamilies,
   getRandomLocations,
   getRandomThemes,
   getRandomTimes,
 } from "../util/data";
-import { locations, times } from "../data/settings.js";
-import { randomItems } from "../util/sort";
-import { conflicts } from "../constants";
 
 const StoryContainer = styled.div`
   background: rgba(17, 17, 18, 1);
@@ -32,15 +28,15 @@ const StoryContainer = styled.div`
 
 class StoryLine {
   constructor({ theme, conflict, characters, location, time }) {
-    this.theme = theme || randomItems(themes).join("");
-    this.conflict = conflict || randomItems(conflicts).join("");
+    this.theme = theme || getRandomThemes({ number: 1 }).join("");
+    this.conflict = conflict || getRandomConflicts({ number: 1 }).join("");
     this.characters = characters || [
       new Character({ idx: 1 }),
       new Character({ idx: 2 }),
       new Character({ idx: 3 }),
     ];
-    this.location = location || randomItems(locations, 1).join("");
-    this.time = time || randomItems(times, 1).join("");
+    this.location = location || getRandomLocations({ number: 1 }).join("");
+    this.time = time || getRandomTimes({ number: 1 }).join("");
   }
 }
 
@@ -48,7 +44,7 @@ const update = {
   theme: (currentTheme) =>
     getRandomThemes({ number: 1, current: currentTheme }).join(""),
   conflict: (currentConflict) =>
-    randomItems(conflicts, 1, currentConflict).join(""),
+    getRandomConflicts({ number: 1, current: currentConflict }).join(""),
   givenName: (currentName) =>
     getRandomGivens({ number: 1, current: currentName }).join(""),
   familyName: (currentName) =>
@@ -69,6 +65,7 @@ export default function Story(props) {
     showSetting: false,
   });
 
+  const handleReload = () => setStory(new StoryLine({}));
   const handleClick = (e) => {
     const name = e.currentTarget.getAttribute("name");
     setStory({
@@ -81,7 +78,6 @@ export default function Story(props) {
     const { characters } = { ...story };
     const currentValue = characters[row][name];
     const updated = update[name](currentValue);
-
     column !== undefined
       ? (characters[row][name][column] = updated)
       : (characters[row][name] = updated);
@@ -91,13 +87,8 @@ export default function Story(props) {
     });
   };
 
-  const handleReload = () => {
-    setStory(new StoryLine({}));
-  };
-
   const handleAddSub = (e) => {
     const name = e.currentTarget.getAttribute("name");
-    if (!name) return;
     const { characters } = { ...story };
     name === "subtract"
       ? characters.splice(-1, 1)
@@ -110,20 +101,14 @@ export default function Story(props) {
 
   const handleOptions = (e) => {
     const name = e.currentTarget.getAttribute("name");
-    if (!name) return;
-    if (name === "setting") {
-      const { showSetting } = { ...options };
-      setOptions({ ...options, showSetting: !showSetting });
-    }
-    if (name === "family") {
-      const { showFamily } = { ...options };
-      setOptions({ ...options, showFamily: !showFamily });
-    }
+    if (name === "family")
+      return setOptions({ ...options, showFamily: !options.showFamily });
+    if (name === "setting")
+      return setOptions({ ...options, showSetting: !options.showSetting });
   };
 
   const handleRemoveCharacter = (e) => {
     const { id } = e.currentTarget;
-    if (!id) console.log("no id");
     const { characters } = { ...story };
     characters.splice(id, 1);
     setStory({

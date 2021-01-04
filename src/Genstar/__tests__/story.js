@@ -19,15 +19,3 @@ test("it should render StoryCharacter", () => {
   );
 });
 
-/*
-
- <StoryCharacter
-          character={character}
-          key={`character-${idx}`}
-          handleCharacter={handleCharacter}
-          handleRemoveCharacter={handleRemoveCharacter}
-          showFamily={options.showFamily}
-          idx={idx}
-        />
-
-*/

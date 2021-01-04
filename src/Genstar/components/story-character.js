@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CloseIcon } from "./buttons/icons";
+import CloseButton from "./buttons/close";
 
 const CharacterWrapper = styled.div`
   background: rgba(17, 17, 18, 1);
@@ -12,28 +12,6 @@ const CharacterWrapper = styled.div`
     background: rgba(30, 30, 31, 1);
   }
 `;
-const CloseButton = styled.button`
-  align-items: center;
-  background: rgba(30, 30, 31, 1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  color: rgba(255, 255, 255, 0.66);
-  cursor: pointer;
-  display: flex;
-  fill: rgba(255, 255, 255, 0.76);
-  height: 32px;
-  justify-content: center;
-  outline: 0;
-  width: 32px;
-  &:hover {
-    color: rgba(255, 255, 255, 1);
-  }
-`;
-
-const ControlsCloseIcon = styled(CloseIcon)`
-  height: 24px;
-  width: 24px;
-`;
 
 const ProfilePictureCell = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.33);
@@ -41,7 +19,7 @@ const ProfilePictureCell = styled.div`
   cursor: pointer;
   height: 56px;
   width: 56px;
-  margin-right: 12px;
+  margin-right: 16px;
   &:hover {
     color: #64ffda;
     border: 1px solid rgba(255, 255, 255, 0.66);
@@ -132,9 +110,7 @@ export default function StoryCharacter(props) {
       </NameHolder>
       {showClose && (
         <CloseContainer>
-          <CloseButton onClick={handleRemoveCharacter} id={idx}>
-            <ControlsCloseIcon />
-          </CloseButton>
+         <CloseButton idx={idx} handleClick={handleRemoveCharacter} />
         </CloseContainer>
       )}
     </CharacterWrapper>

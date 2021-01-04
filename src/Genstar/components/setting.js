@@ -13,7 +13,7 @@ const SettingWrapper = styled.div`
 
 const SettingItem = styled.div`
   cursor: pointer;
-  font-size: 90%;
+  font-size: 16px;
   margin-right: 4px;
   &:hover {
     color: rgba(100, 255, 218, 0.76);
