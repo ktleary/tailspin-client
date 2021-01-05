@@ -16,7 +16,7 @@ The app generates changeable story properties including:
 
 ## Demo
 
-[stringtalk.org/genstart](https://stringtalk.org/genstar)
+[stringtalk.org/genstar](https://stringtalk.org/genstar)
 
 ## API
 
