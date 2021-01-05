@@ -39,7 +39,7 @@ export const locations = [
   "R.V.",
   "Olympics",
   "New England",
-  "College sampus",
+  "College campus",
   "Forest",
   "Central Park",
   "Alaska",
