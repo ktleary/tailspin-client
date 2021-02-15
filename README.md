@@ -50,7 +50,7 @@ const createProfileUrl = (path) =>
 
 ## Contributing
 
-To suggest additions or subtractions to any of Genstar's features, please open an issue in the github repository (https://github.com:ktleary/genstar)
+To suggest additions or subtractions to any of Genstar's features, please open an issue in the github repository (https://github.com/ktleary/genstar)
 
 ## Acknowledgements
 
@@ -58,7 +58,7 @@ To suggest additions or subtractions to any of Genstar's features, please open a
 
 [People vector designed by Skydesign - Freepik.com](http://www.freepik.com/free-photos-vectors/people).
 
-## Licence
+## License
 
 GPL-3.0-or-later
 
