@@ -14,43 +14,8 @@ The app generates changeable story properties including:
 
 ![Genstar Storyboard](genstar-screenshot.png)
 
-## Demo
+In the wild: https://stringtalk.org/genstar
 
-[stringtalk.org/genstar](https://stringtalk.org/genstar)
-
-## API
-
-```
-
-const getRandomConflicts = ({ number = 1, current = [] }) =>
-  randomItems(conflicts, number, current);
-
-const getRandomGivens = ({ number = 1, current = [] }) =>
-  randomItems(givenNames, number, current);
-
-const getRandomFamilies = ({ number = 1, current = [] }) =>
-  randomItems(familyNames, number, current);
-
-const getRandomAllWords = ({ number = 1, current = [] }) =>
-  randomItems(allWords, number, current);
-
-const getRandomLocations = ({ number = 1, current = [] }) =>
-  randomItems(locations, number, current);
-
-const getRandomThemes = ({ number = 1, current = [] }) =>
-  randomItems(themes, number, current);
-
-const getRandomTimes = ({ number = 1, current = [] }) =>
-  randomItems(times, number, current)
-
-const createProfileUrl = (path) =>
-  `${path}/images/${randomInt()}.png`;
-
-```
-
-## Contributing
-
-To suggest additions or subtractions to any of Genstar's features, please open an issue in the github repository (https://github.com/ktleary/genstar)
 
 ## Acknowledgements
 

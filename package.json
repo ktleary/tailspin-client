@@ -1,7 +1,7 @@
 {
   "name": "genster",
   "description": "Stir the plot. Stringtalk genstar provides interactive writing prompts to generate stories, plots, themes, characters and settings.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "browserslist": {
     "production": [
       ">0.2%",
