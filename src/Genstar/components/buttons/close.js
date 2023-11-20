@@ -8,7 +8,7 @@ const ControlsCloseIcon = styled(CloseIcon)`
 
 const Close = styled.button`
   align-items: center;
-  background: rgba(30, 30, 31, 1);
+  background: #212121;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.66);

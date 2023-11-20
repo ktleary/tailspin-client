@@ -10,7 +10,7 @@ import {
 
 const ControlsWrapper = styled.div`
   align-items: center;
-  background: rgba(23, 23, 24, 1);
+  background: #212121;
   display: flex;
   justify-content: space-around;
   margin: 0;
@@ -43,7 +43,7 @@ const ControlsFamilyIcon = styled(FamilyIcon)`
 
 const ReloadButton = styled.button`
   align-items: center;
-  background: rgba(23, 23, 24, 1);
+  background: #212121;
   border: 1px solid rgba(23, 23, 24, 0.1);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.87);
@@ -55,7 +55,7 @@ const ReloadButton = styled.button`
   outline: 0;
   width: 56px;
   &:hover {
-    background: rgba(30, 30, 31, 1);
+    background: #313131;
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: rgba(255, 255, 255, 1);
     fill: rgba(255, 255, 255, 1);

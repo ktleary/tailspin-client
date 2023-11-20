@@ -19,9 +19,10 @@ import {
 } from "../util/data";
 
 const StoryContainer = styled.div`
-  background: rgba(17, 17, 18, 1);
+  background: #212121;
   margin: 0 auto;
   max-width: 444px;
+  font-family: "OpenSans", sans-serif;
   @media (max-width: 444px) {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
@@ -117,7 +118,6 @@ export default function Story(props) {
       characters,
     });
   };
-
 
   return (
     <StoryContainer>

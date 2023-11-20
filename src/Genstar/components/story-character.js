@@ -3,13 +3,13 @@ import styled from "styled-components";
 import CloseButton from "./buttons/close";
 
 const CharacterWrapper = styled.div`
-  background: rgba(17, 17, 18, 1);
+  background: #212121;
   align-items: center;
   display: flex;
   height: 72px;
   padding-left: 16px;
   &:hover {
-    background: rgba(30, 30, 31, 1);
+    background: #313131;
   }
 `;
 
@@ -67,13 +67,8 @@ const CloseContainer = styled.div`
 `;
 
 export default function StoryCharacter(props) {
-  const {
-    character,
-    handleCharacter,
-    handleRemoveCharacter,
-    idx,
-    showFamily,
-  } = props;
+  const { character, handleCharacter, handleRemoveCharacter, idx, showFamily } =
+    props;
   const [showClose, setShowClose] = useState(false);
   const handleMouseEnter = () => setShowClose(true);
   const handleMouseOut = () => setShowClose(false);
@@ -110,7 +105,7 @@ export default function StoryCharacter(props) {
       </NameHolder>
       {showClose && (
         <CloseContainer>
-         <CloseButton idx={idx} handleClick={handleRemoveCharacter} />
+          <CloseButton idx={idx} handleClick={handleRemoveCharacter} />
         </CloseContainer>
       )}
     </CharacterWrapper>

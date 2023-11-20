@@ -6,14 +6,14 @@ import styled from "styled-components";
 import "./style/genstar.css";
 
 const GenstarWrapper = styled.div`
-  background: rgba(0, 0, 0, 1);
+  background: #212121;
   margin: auto;
   padding-bottom: 0px;
   width: 100%;
 `;
 
 const Shim = styled.div`
-  background: rgba(0, 0, 0, 1);
+  background: #212121;
   padding: 0 16px;
 `;
 

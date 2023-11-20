@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const SettingWrapper = styled.div`
   align-items: center;
-  background: rgba(17, 17, 18, 1);
+  background: #212121;
 
   display: flex;
   height: 16px;

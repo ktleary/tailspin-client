@@ -1,17 +1,27 @@
-html,
-body {
-  background: rgba(0, 0, 0, 1);
-}
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "OpenSans";
+  src: local("OpenSans"), url("./fonts/OpenSans-Regular.ttf") format("truetype");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  background-color: #212121;
+  border: 0;
+  color: rgba(255, 255, 255, 1);
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  flex: 1;
+  height: 100vh;
+  min-height: 100%;
+  font-family: "OpenSans", sans-serif;
+}
+
+body {
+  background-color: #212121;
+  font-family: OpenSans, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
