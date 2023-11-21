@@ -9,10 +9,10 @@ import {
   getRandomThemes,
   getRandomTimes,
 } from "../util/data";
-import Character from "./character";
+import { character } from "./character";
 import Conflict from "./conflict";
 import Controls from "./controls";
-import ProfileImage from "./profile-image";
+import { createProfileUrl } from "./profile-image";
 import Setting from "./setting";
 import StoryCharacter from "./story-character";
 import Theme from "./theme";
@@ -32,19 +32,19 @@ const StoryContainer = styled.div`
   }
 `;
 
-class StoryLine {
-  constructor({ theme, conflict, characters, location, time }) {
-    this.theme = theme || getRandomThemes({ number: 1 }).join("");
-    this.conflict = conflict || getRandomConflicts({ number: 1 }).join("");
-    this.characters = characters || [
-      new Character({ idx: 1 }),
-      new Character({ idx: 2 }),
-      new Character({ idx: 3 }),
-    ];
-    this.location = location || getRandomLocations({ number: 1 }).join("");
-    this.time = time || getRandomTimes({ number: 1 }).join("");
-  }
-}
+const storyLine = ({ theme, conflict, characters, location, time }) => {
+  return {
+    theme: theme || getRandomThemes({ number: 1 }).join(""),
+    conflict: conflict || getRandomConflicts({ number: 1 }).join(""),
+    characters: characters || [
+      character({ idx: 1 }),
+      character({ idx: 2 }),
+      character({ idx: 3 }),
+    ],
+    location: location || getRandomLocations({ number: 1 }).join(""),
+    time: time || getRandomTimes({ number: 1 }).join(""),
+  };
+};
 
 const update = {
   theme: (currentTheme) =>
@@ -55,7 +55,7 @@ const update = {
     getRandomGivens({ number: 1, current: currentName }).join(""),
   familyName: (currentName) =>
     getRandomFamilies({ number: 1, current: currentName }).join(""),
-  image: (currentImage) => <ProfileImage currentImage={currentImage} />,
+  image: (currentImage) => createProfileUrl({ current: currentImage }),
   attributes: (currentAttributes) =>
     getRandomAllWords({ number: 1, current: currentAttributes }).join(""),
   location: (currentLocation) =>
@@ -65,13 +65,13 @@ const update = {
 };
 
 export default function Story(props) {
-  const [story, setStory] = useState(new StoryLine({}));
+  const [story, setStory] = useState(() => storyLine({}));
   const [options, setOptions] = useState({
     showFamily: true,
     showSetting: false,
   });
 
-  const handleReload = () => setStory(new StoryLine({}));
+  const handleReload = () => setStory(storyLine({}));
   const handleClick = (e) => {
     const name = e.currentTarget.getAttribute("name");
     setStory({
@@ -83,7 +83,11 @@ export default function Story(props) {
   const handleCharacter = (name, row, column) => {
     const { characters } = { ...story };
     const currentValue = characters[row][name];
+
     const updated = update[name](currentValue);
+    console.log(
+      `name=${name} row=${row} column=${column} currentValue=${currentValue} updated=${updated}`
+    );
     column !== undefined
       ? (characters[row][name][column] = updated)
       : (characters[row][name] = updated);
@@ -98,7 +102,7 @@ export default function Story(props) {
     const { characters } = { ...story };
     name === "subtract"
       ? characters.splice(-1, 1)
-      : characters.push(new Character({ idx: characters.length + 1 }));
+      : characters.push(character({ idx: characters.length + 1 }));
     setStory({
       ...story,
       characters,
@@ -125,55 +129,12 @@ export default function Story(props) {
 
   const { theme, conflict, characters, location, time } = story || {};
 
-  /*
-// Assuming you have a `story` object structured correctly for your backend
-const story = {
-  theme: "Convention and Rebellion",
-  characters: [
-    { name: "Reid Langdon", age: 27, occupation: "Sculptor", traits: ["irrational", "kind"] },
-    // ... other characters
-  ],
-  setting: "Autumn, Banks of the Seine river in Paris",
-  plotPoint: "A mysterious discovery changes the course of the protagonist's life"
-  // ... other story properties
-};
-
-// Function to POST the story to the backend
-const postStory = async (story) => {
-  try {
-    const response = await fetch('http://localhost:8080/api/v1/create-story', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(story)
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log(data); // Do something with the response data
-  } catch (error) {
-    console.error("Could not post story:", error);
-  }
-};
-
-// Call the function with the story object
-postStory(story);
-*/
-
-  const character1 = characters[0] || {};
-  const character2 = characters[1] || {};
-  const character3 = characters[2] || {};
-
   const postStory = async () => {
     const shouldSend = false;
     const story = {
       theme,
       conflict,
-      // characters,
+      characters,
       location,
       time,
     };
@@ -246,3 +207,19 @@ maxWidth: "444px",
 }}
 >{`Theme=${theme} Conflict=${conflict} Location=${location} Time=${time} character1=${character1} character2=${character2} character3=${character3}`}</div>
 */
+
+// class StoryLine {
+//   constructor({ theme, conflict, characters, location, time }) {
+//     this.theme = theme || getRandomThemes({ number: 1 }).join("");
+//     this.conflict = conflict || getRandomConflicts({ number: 1 }).join("");
+//     this.characters = characters || [
+//       new Character({ idx: 1 }),
+//       new Character({ idx: 2 }),
+//       new Character({ idx: 3 }),
+//     ];
+//     this.location = location || getRandomLocations({ number: 1 }).join("");
+//     this.time = time || getRandomTimes({ number: 1 }).join("");
+//   }
+// }
+
+// lets convert StoryLine to a regular object instead of a class

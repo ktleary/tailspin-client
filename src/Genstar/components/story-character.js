@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import CloseButton from "./buttons/close";
+import { ProfileImage } from "./profile-image";
 
 const CharacterWrapper = styled.div`
   background: #212121;
@@ -79,7 +80,7 @@ export default function StoryCharacter(props) {
       onMouseLeave={handleMouseOut}
     >
       <ProfilePictureCell onClick={() => handleCharacter("image", idx)}>
-        {character.image}
+        <ProfileImage src={character.image} />
       </ProfilePictureCell>
       <NameHolder>
         <NameRow>

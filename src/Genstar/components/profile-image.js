@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { getEnv } from "../util/env";
 import { randomInt } from "../util/sort";
@@ -19,10 +19,12 @@ const createProfileUrl = () => {
   return `${path}/images/${random}.png`;
 };
 
-const ProfileImage = (src) => (
-  <ProfileImageWrapper>
-    <ProfilePhoto src={createProfileUrl()} />
-  </ProfileImageWrapper>
-);
+const ProfileImage = memo(({ src }) => {
+  return (
+    <ProfileImageWrapper>
+      <ProfilePhoto src={src} />
+    </ProfileImageWrapper>
+  );
+});
 
-export default ProfileImage;
+export { ProfileImage, createProfileUrl };
