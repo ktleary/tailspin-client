@@ -3,6 +3,7 @@ import { allWords } from "../data/words";
 import { locations, times } from "../data/settings.js";
 import { conflicts } from "../constants";
 import themes from "../data/themes";
+import plotPoints from "../data/plot-points";
 import { randomItems } from "./sort";
 
 const getRandomConflicts = ({ number = 1, current = [] }) =>
@@ -26,6 +27,9 @@ const getRandomThemes = ({ number = 1, current = [] }) =>
 const getRandomTimes = ({ number = 1, current = [] }) =>
   randomItems(times, number, current);
 
+const getRandomPlotPoint = ({ number = 1, current = [] }) =>
+  randomItems(plotPoints, number, current);
+
 export {
   getRandomAllWords,
   getRandomConflicts,
@@ -34,4 +38,5 @@ export {
   getRandomLocations,
   getRandomThemes,
   getRandomTimes,
+  getRandomPlotPoint,
 };

@@ -8,9 +8,11 @@ import {
   getRandomLocations,
   getRandomThemes,
   getRandomTimes,
+  getRandomPlotPoint,
 } from "../util/data";
 import { character } from "./character";
 import Conflict from "./conflict";
+import PlotPoint from "./plot-point";
 import Controls from "./controls";
 import { createProfileUrl } from "./profile-image";
 import Setting from "./setting";
@@ -32,10 +34,18 @@ const StoryContainer = styled.div`
   }
 `;
 
-const storyLine = ({ theme, conflict, characters, location, time }) => {
+const storyLine = ({
+  theme,
+  conflict,
+  characters,
+  location,
+  time,
+  plotPoint,
+}) => {
   return {
     theme: theme || getRandomThemes({ number: 1 }).join(""),
     conflict: conflict || getRandomConflicts({ number: 1 }).join(""),
+    plotPoint: plotPoint || getRandomPlotPoint({ number: 1 }).join(""),
     characters: characters || [
       character({ idx: 1 }),
       character({ idx: 2 }),
@@ -51,6 +61,8 @@ const update = {
     getRandomThemes({ number: 1, current: currentTheme }).join(""),
   conflict: (currentConflict) =>
     getRandomConflicts({ number: 1, current: currentConflict }).join(""),
+  plotPoint: (currentPlotPoint) =>
+    getRandomPlotPoint({ number: 1, current: currentPlotPoint }).join(""),
   givenName: (currentName) =>
     getRandomGivens({ number: 1, current: currentName }).join(""),
   familyName: (currentName) =>
@@ -127,7 +139,8 @@ export default function Story(props) {
     });
   };
 
-  const { theme, conflict, characters, location, time } = story || {};
+  const { theme, conflict, characters, location, time, plotPoint } =
+    story || {};
 
   const postStory = async () => {
     const shouldSend = false;
@@ -137,6 +150,7 @@ export default function Story(props) {
       characters,
       location,
       time,
+      plotPoint,
     };
     alert(JSON.stringify(story));
 
@@ -167,6 +181,7 @@ export default function Story(props) {
       <StoryContainer>
         <Theme theme={story.theme} handleClick={handleClick} />
         <Conflict conflict={story.conflict} handleClick={handleClick} />
+        <PlotPoint plotPoint={story.plotPoint} handleClick={handleClick} />
         {story.characters.map((character, idx) => (
           <StoryCharacter
             character={character}
