@@ -6,6 +6,7 @@ import {
   FamilyIcon,
   PersonIcon,
   ReloadIcon,
+  SendIcon,
 } from "./buttons/icons";
 
 const ControlsWrapper = styled.div`
@@ -41,6 +42,11 @@ const ControlsFamilyIcon = styled(FamilyIcon)`
   width: 24px;
 `;
 
+const ControlsSendIcon = styled(SendIcon)`
+  height: 24px;
+  width: 24px;
+`;
+
 const ReloadButton = styled.button`
   align-items: center;
   background: #212121;
@@ -68,12 +74,14 @@ const LocationButton = styled(ReloadButton)``;
 
 const FamilyButton = styled(ReloadButton)``;
 
+const SendButton = styled(ReloadButton)``;
+
 const ControlItem = styled.div`
   margin: auto 8px;
 `;
 
 export default function Controls(props) {
-  const { handleAddSub, handleOptions, handleReload } = props;
+  const { handleAddSub, handleOptions, handleReload, handleSend } = props;
   return (
     <ControlsWrapper>
       <ControlItem>
@@ -96,6 +104,11 @@ export default function Controls(props) {
         <ReloadButton onClick={handleReload}>
           <ControlsReloadIcon />
         </ReloadButton>
+      </ControlItem>
+      <ControlItem>
+        <SendButton name="send" alt="Send" title="Send" onClick={handleSend}>
+          <ControlsSendIcon />
+        </SendButton>
       </ControlItem>
     </ControlsWrapper>
   );

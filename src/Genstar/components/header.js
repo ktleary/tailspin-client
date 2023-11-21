@@ -3,23 +3,27 @@ import styled from "styled-components";
 
 const HeaderContainer = styled.div`
   color: rgba(255, 255, 255, 0.87);
-  padding-left: 16px;
   padding-top: 16px;
   padding-bottom: 8px;
   margin-bottom: 32px;
   width: 100%;
+
+  padding-left: 16px;
+  width: 100%;
+  display: flex;
   @media (max-width: 444px) {
     padding-left: 0px;
   }
 `;
 
 const Title = styled.h1`
-  font-family: Roboto, sans-serif;
+  font-family: OpenSans, sans-serif;
   font-size: 32px;
-  font-weight: normal;
+  font-weight: 700;
   margin: 0;
   margin-bottom: 2px;
   padding: 0;
+  letter-spacing: -1px;
 `;
 
 // const Subtitle = styled.div`
@@ -30,7 +34,7 @@ const Title = styled.h1`
 
 const Header = ({ title }) => (
   <HeaderContainer>
-    <Title>Genstar</Title>
+    <Title>Tailspin</Title>
     {/* <Subtitle>Stir the plot.</Subtitle> */}
   </HeaderContainer>
 );

@@ -13,6 +13,13 @@ const AddIcon = ({ className }) => (
   </Svg>
 );
 
+const SendIcon = ({ className }) => (
+  <Svg title="Send" viewBox="0 0 24 24" className={className}>
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+  </Svg>
+);
+
 const AddLocationIcon = ({ className }) => (
   <Svg title="Copy" viewBox="0 0 24 24" className={className}>
     <path d="M0 0h24v24H0V0z" fill="none" />
@@ -71,4 +78,5 @@ export {
   PersonIcon,
   ReloadIcon,
   SubtractIcon,
+  SendIcon,
 };

@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Theme from "./theme";
-import Character from "./character";
-import Conflict from "./conflict";
-import StoryCharacter from "./story-character";
-import Setting from "./setting";
-import Controls from "./controls";
-import ProfileImage from "./profile-image";
-
 import {
   getRandomAllWords,
   getRandomConflicts,
-  getRandomGivens,
   getRandomFamilies,
+  getRandomGivens,
   getRandomLocations,
   getRandomThemes,
   getRandomTimes,
 } from "../util/data";
+import Character from "./character";
+import Conflict from "./conflict";
+import Controls from "./controls";
+import ProfileImage from "./profile-image";
+import Setting from "./setting";
+import StoryCharacter from "./story-character";
+import Theme from "./theme";
+
+const storyEndpoint = "http://localhost:8080/api/v1/create-story";
 
 const StoryContainer = styled.div`
   background: #212121;
   margin: 0 auto;
   max-width: 444px;
   font-family: "OpenSans", sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: 4px;
+  padding: 0.5rem;
   @media (max-width: 444px) {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
@@ -119,32 +123,126 @@ export default function Story(props) {
     });
   };
 
+  const { theme, conflict, characters, location, time } = story || {};
+
+  /*
+// Assuming you have a `story` object structured correctly for your backend
+const story = {
+  theme: "Convention and Rebellion",
+  characters: [
+    { name: "Reid Langdon", age: 27, occupation: "Sculptor", traits: ["irrational", "kind"] },
+    // ... other characters
+  ],
+  setting: "Autumn, Banks of the Seine river in Paris",
+  plotPoint: "A mysterious discovery changes the course of the protagonist's life"
+  // ... other story properties
+};
+
+// Function to POST the story to the backend
+const postStory = async (story) => {
+  try {
+    const response = await fetch('http://localhost:8080/api/v1/create-story', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(story)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data); // Do something with the response data
+  } catch (error) {
+    console.error("Could not post story:", error);
+  }
+};
+
+// Call the function with the story object
+postStory(story);
+*/
+
+  const character1 = characters[0] || {};
+  const character2 = characters[1] || {};
+  const character3 = characters[2] || {};
+
+  const postStory = async () => {
+    const shouldSend = false;
+    const story = {
+      theme,
+      conflict,
+      // characters,
+      location,
+      time,
+    };
+    alert(JSON.stringify(story));
+
+    if (!shouldSend) return;
+    try {
+      const response = await fetch(storyEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(story),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data); // Do something with the response data
+    } catch (error) {
+      const { name, message } = error;
+      console.error(`Could not post story: ${name} ${message}`);
+    }
+  };
+
   return (
-    <StoryContainer>
-      <Theme theme={story.theme} handleClick={handleClick} />
-      <Conflict conflict={story.conflict} handleClick={handleClick} />
-      {story.characters.map((character, idx) => (
-        <StoryCharacter
-          character={character}
-          key={`character-${idx}`}
-          handleCharacter={handleCharacter}
-          handleRemoveCharacter={handleRemoveCharacter}
-          showFamily={options.showFamily}
-          idx={idx}
+    <>
+      <StoryContainer>
+        <Theme theme={story.theme} handleClick={handleClick} />
+        <Conflict conflict={story.conflict} handleClick={handleClick} />
+        {story.characters.map((character, idx) => (
+          <StoryCharacter
+            character={character}
+            key={`character-${idx}`}
+            handleCharacter={handleCharacter}
+            handleRemoveCharacter={handleRemoveCharacter}
+            showFamily={options.showFamily}
+            idx={idx}
+          />
+        ))}
+        <Setting
+          time={story.time}
+          location={story.location}
+          handleClick={handleClick}
+          showSetting={options.showSetting}
         />
-      ))}
-      <Setting
-        time={story.time}
-        location={story.location}
-        handleClick={handleClick}
-        showSetting={options.showSetting}
-      />
-      <Controls
-        handleAddSub={handleAddSub}
-        handleReload={handleReload}
-        handleOptions={handleOptions}
-        handleRemoveCharacter={handleRemoveCharacter}
-      />
-    </StoryContainer>
+        <Controls
+          handleAddSub={handleAddSub}
+          handleReload={handleReload}
+          handleOptions={handleOptions}
+          handleRemoveCharacter={handleRemoveCharacter}
+          handleSend={postStory}
+        />
+      </StoryContainer>
+    </>
   );
 }
+
+/*
+<div
+style={{
+color: "white",
+fontSize: "0.8rem",
+textAlign: "center",
+margin: "36px auto",
+maxWidth: "444px",
+
+}}
+>{`Theme=${theme} Conflict=${conflict} Location=${location} Time=${time} character1=${character1} character2=${character2} character3=${character3}`}</div>
+*/
