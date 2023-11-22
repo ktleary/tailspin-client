@@ -103,6 +103,14 @@ export default function StoryCharacter(props) {
             </WordCell>
           ))}
         </NameRow>
+        <NameRow>
+          <WordCell onClick={() => handleCharacter("age", idx)}>
+            {character.age}
+          </WordCell>
+          <WordCell onClick={() => handleCharacter("occupation", idx)}>
+            {character.occupation}
+          </WordCell>
+        </NameRow>
       </NameHolder>
       {showClose && (
         <CloseContainer>

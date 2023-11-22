@@ -5,6 +5,13 @@ import { conflicts } from "../constants";
 import themes from "../data/themes";
 import plotPoints from "../data/plot-points";
 import { randomItems } from "./sort";
+import { tones, endings } from "../data/endings";
+import { occupation } from "../data/occupation";
+
+const age = [
+  1, 7, 12, 16, 18, 21, 25, 27, 33, 35, 39, 42, 45, 49, 52, 55, 62, 65, 72, 77,
+  88,
+];
 
 const getRandomConflicts = ({ number = 1, current = [] }) =>
   randomItems(conflicts, number, current);
@@ -30,6 +37,20 @@ const getRandomTimes = ({ number = 1, current = [] }) =>
 const getRandomPlotPoint = ({ number = 1, current = [] }) =>
   randomItems(plotPoints, number, current);
 
+// tones
+
+const getRandomTones = ({ number = 1, current = [] }) =>
+  randomItems(tones, number, current);
+
+const getRandomEndings = ({ number = 1, current = [] }) =>
+  randomItems(endings, number, current);
+
+const getRandomAge = ({ number = 1, current = [] }) =>
+  randomItems(age, number, current);
+
+const getRandomOccupation = ({ number = 1, current = [] }) =>
+  randomItems(occupation, number, current);
+
 export {
   getRandomAllWords,
   getRandomConflicts,
@@ -39,4 +60,8 @@ export {
   getRandomThemes,
   getRandomTimes,
   getRandomPlotPoint,
+  getRandomTones,
+  getRandomEndings,
+  getRandomAge,
+  getRandomOccupation,
 };
