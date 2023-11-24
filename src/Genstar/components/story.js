@@ -34,7 +34,7 @@ const StoryContainer = styled.div`
   max-width: 444px;
   font-family: "OpenSans", sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.66);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 0.5rem;
   @media (max-width: 444px) {
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -222,18 +222,10 @@ export default function Story(props) {
     if (!shouldSend) {
       return alert(JSON.stringify(story));
     }
-    /*
-endpoint is expecting this format
-app.post("/api/v1/create-story", async (req: Request, res: Response) => {
-  const story: Story = req.body.story;
-  const { theme, characters, setting, plotPoint, conflict, ending, tone } =
-    story;
-
-    */
 
     try {
       setLoading(true);
-      setGeneratedStory("creating story...");
+      setGeneratedStory("Creating your story...");
       const response = await fetch(storyEndpoint, {
         method: "POST",
         headers: {

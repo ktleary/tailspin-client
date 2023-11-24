@@ -4,7 +4,17 @@
 
 Tailspin is an interactive web application designed to unleash your creativity in storytelling. Leveraging the power of AI, Tailspin enables users to generate unique story outlines that can be further developed into full-fledged narratives.
 
-![Tailspin Screenshot](tailspin-screen.jpg)
+![Tailspin Screenshot](tailspin-screen.png)
+
+```markdown
+The midwestern sun blazed down on the small cabin where Alexander, Ivy, and Jun were staying for their weeklong vacation. The air was thick with the scent of corn and the distant sound of cattle could be heard. It was August, the peak of summer, and the perfect time to escape the city and all of its craziness.
+
+Alexander, a spirited young man with a head full of opinions, was lounging in a hammock, sipping on a cold beer. Ivy, a nonconformist musician, was sprawled on the grass, strumming her guitar. Jun, the polite and conscientious waiter, was busy tending to the BBQ, his apron stained with sauce.
+
+They had been friends since college and had promised to take a trip together every summer. This year, they had decided on the Midwest, craving the simplicity and peace that it offered.
+
+As the sun began to set, they gathered around the fire, roasting marshmallows and sharing stories. The fireflies danced around them, adding to the magical atmosphere. Everything seemed perfect, until Alexander's phone rang ...
+```
 
 ### Features
 
