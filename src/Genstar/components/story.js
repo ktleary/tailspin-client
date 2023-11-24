@@ -56,6 +56,14 @@ const StoryTextContainer = styled.div`
   }
 `;
 
+const LoadingWrapper = styled.div`
+  margin: 0 auto;
+  max-width: 444px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+`;
+
 const removeSurname = (character) => {
   const { givenName, attributes, age, occupation, image } = character;
   return {
@@ -281,50 +289,25 @@ app.post("/api/v1/create-story", async (req: Request, res: Response) => {
           handleSend={postStory}
         />
       </StoryContainer>
-      <StoryTextContainer>
-        {loading && (
+      {loading && (
+        <LoadingWrapper>
           <ProgressBar
             ariaLabel="progress-bar-loading"
             wrapperStyle={{}}
-            wrapperClass="progress-bar-wrapper"
+            height={80}
+            width={80}
             borderColor="#212121"
             barColor="#64ffda"
           />
-        )}
-        {generatedStory &&
-          generatedStory
-            .split("\n")
-            .map((line, idx) => <p key={`generated-story-${idx}`}>{line}</p>)}
-      </StoryTextContainer>
+        </LoadingWrapper>
+      )}
+      {generatedStory && (
+        <StoryTextContainer>
+          {generatedStory.split("\n").map((line, idx) => (
+            <p key={`generated-story-${idx}`}>{line}</p>
+          ))}
+        </StoryTextContainer>
+      )}
     </>
   );
 }
-
-/*
-<div
-style={{
-color: "white",
-fontSize: "0.8rem",
-textAlign: "center",
-margin: "36px auto",
-maxWidth: "444px",
-
-}}
->{`Theme=${theme} Conflict=${conflict} Location=${location} Time=${time} character1=${character1} character2=${character2} character3=${character3}`}</div>
-*/
-
-// class StoryLine {
-//   constructor({ theme, conflict, characters, location, time }) {
-//     this.theme = theme || getRandomThemes({ number: 1 }).join("");
-//     this.conflict = conflict || getRandomConflicts({ number: 1 }).join("");
-//     this.characters = characters || [
-//       new Character({ idx: 1 }),
-//       new Character({ idx: 2 }),
-//       new Character({ idx: 3 }),
-//     ];
-//     this.location = location || getRandomLocations({ number: 1 }).join("");
-//     this.time = time || getRandomTimes({ number: 1 }).join("");
-//   }
-// }
-
-// lets convert StoryLine to a regular object instead of a class

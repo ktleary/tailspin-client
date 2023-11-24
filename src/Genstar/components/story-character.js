@@ -7,8 +7,10 @@ const CharacterWrapper = styled.div`
   background: #212121;
   align-items: center;
   display: flex;
-  height: 72px;
+  height: 88px;
   padding-left: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.33);
+  padding-bottom: 4px;
   &:hover {
     background: #313131;
   }
@@ -58,6 +60,10 @@ const WordCell = styled.div`
   }
 `;
 
+const PaddedWordCell = styled(WordCell)`
+padding-bottom: 4px;
+`;
+
 const CloseContainer = styled.div`
   align-items: center;
   height: 36px;
@@ -104,12 +110,12 @@ export default function StoryCharacter(props) {
           ))}
         </NameRow>
         <NameRow>
-          <WordCell onClick={() => handleCharacter("age", idx)}>
+          <PaddedWordCell onClick={() => handleCharacter("age", idx)}>
             {character.age}
-          </WordCell>
-          <WordCell onClick={() => handleCharacter("occupation", idx)}>
+          </PaddedWordCell>
+          <PaddedWordCell onClick={() => handleCharacter("occupation", idx)}>
             {character.occupation}
-          </WordCell>
+          </PaddedWordCell>
         </NameRow>
       </NameHolder>
       {showClose && (
