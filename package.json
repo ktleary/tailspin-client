@@ -1,6 +1,6 @@
 {
-  "name": "genster",
-  "description": "Stir the plot. Stringtalk genstar provides interactive writing prompts to generate stories, plots, themes, characters and settings.",
+  "name": "tailspin",
+  "description": "Tailspin: Craft Your Tale, Interactive AI Story Generator",
   "version": "0.4.0",
   "browserslist": {
     "production": [
@@ -36,7 +36,7 @@
   "private": true,
   "scripts": {
     "build": "react-scripts build",
-    "build_prod": "PUBLIC_URL=https://stringtalk.org/genstar/ react-scripts build",
+    "build_prod": "PUBLIC_URL=https://stringtalk.org/tailspin/ react-scripts build",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test",
