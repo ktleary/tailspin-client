@@ -4,11 +4,10 @@ import styled from "styled-components";
 const SettingWrapper = styled.div`
   align-items: center;
   background: #212121;
-
   display: flex;
   height: 16px;
   justify-content: flex-start;
-  padding: 16px 20px;
+  padding: 8px 20px;
 `;
 
 const SettingItem = styled.div`

@@ -67,12 +67,13 @@ const LoadingWrapper = styled.div`
 `;
 
 const Label = styled.div`
-  color: rgba(255, 255, 255, 0.66);
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.33);
+  font-size: 12px;
   padding-left: 0px;
   letter-spacing: -0.5px;
   font-family: OpenSans, sans-serif;
-  margin: 2px 0;
+  margin-top: 8px;
+  margin-left: 16px;
 `;
 
 const InfoWrapper = styled.div`
@@ -87,12 +88,7 @@ const InfoWrapper = styled.div`
   }
 `;
 
-const FakeLink = styled.a`
-  background: transparent;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-`;
+const FakeLink = styled.a``;
 
 const removeSurname = (character) => {
   const { givenName, attributes, age, occupation, image } = character;
@@ -304,8 +300,11 @@ export default function Story(props) {
             idx={idx}
           />
         ))}
+        <Label>Tone</Label>
         <Tone tone={story.tone} handleClick={handleClick} />
+        <Label>Ending</Label>
         <Ending ending={story.ending} handleClick={handleClick} />
+        <Label>Setting</Label>
         <Setting
           time={story.time}
           location={story.location}
