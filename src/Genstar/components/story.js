@@ -29,7 +29,19 @@ import Tone from "./tone";
 import { InfoIcon } from "./buttons/icons";
 import Modal from "react-modal";
 
-const storyEndpoint = "http://localhost:8080/api/v1/create-story";
+const getEndPoint = () => {
+  if (window.location.href.includes("tailspin.fun")) {
+    return "https://tailspin.fun/api/v1/create-story";
+  }
+
+  if (window.location.href.includes("www.tailspin.fun")) {
+    return "https://www.tailspin.fun/api/v1/create-story";
+  }
+
+  return "http://localhost:8080/api/v1/create-story";
+};
+
+const storyEndpoint = getEndPoint();
 
 const StoryContainer = styled.div`
   background: #212121;
