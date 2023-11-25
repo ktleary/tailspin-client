@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ProgressBar } from "react-loader-spinner";
 import styled from "styled-components";
+import { Tooltip } from "react-tooltip";
 import {
   getRandomAge,
   getRandomAllWords,
@@ -25,6 +26,7 @@ import Setting from "./setting";
 import StoryCharacter from "./story-character";
 import Theme from "./theme";
 import Tone from "./tone";
+import { InfoIcon } from "./buttons/icons";
 
 const storyEndpoint = "http://localhost:8080/api/v1/create-story";
 
@@ -62,6 +64,34 @@ const LoadingWrapper = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+`;
+
+const Label = styled.div`
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 14px;
+  padding-left: 0px;
+  letter-spacing: -0.5px;
+  font-family: OpenSans, sans-serif;
+  margin: 2px 0;
+`;
+
+const InfoWrapper = styled.div`
+  align-items: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  justify-content: flex-end;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.77);
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+`;
+
+const FakeLink = styled.a`
+  background: transparent;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 `;
 
 const removeSurname = (character) => {
@@ -252,6 +282,15 @@ export default function Story(props) {
   return (
     <>
       <StoryContainer>
+        <InfoWrapper>
+          <FakeLink
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Click on any word to change it."
+          >
+            <InfoIcon />
+          </FakeLink>
+          <Tooltip id="my-tooltip" />
+        </InfoWrapper>
         <Theme theme={story.theme} handleClick={handleClick} />
         <Conflict conflict={story.conflict} handleClick={handleClick} />
         <PlotPoint plotPoint={story.plotPoint} handleClick={handleClick} />

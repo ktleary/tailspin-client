@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 const ThemeWrapper = styled.div`
   background: #212121;
-  padding: 16px 16px 8px 18px;
+  padding: 0px 16px 8px 18px;
+  margin-top: -24px;
 
 `;
 

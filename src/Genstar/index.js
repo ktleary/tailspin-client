@@ -18,7 +18,7 @@ const Shim = styled.div`
 `;
 
 export default function Genstar() {
-  const title = "Genstr";
+  const title = "Tailspin AI";
   return (
     <Shim>
       <GenstarWrapper>
