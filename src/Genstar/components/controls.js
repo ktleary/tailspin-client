@@ -74,14 +74,19 @@ const LocationButton = styled(ReloadButton)``;
 
 const FamilyButton = styled(ReloadButton)``;
 
-const SendButton = styled(ReloadButton)``;
+const SendButton = styled(ReloadButton)`
+  background: ${(props) => (props.disabled ? "rgba(221,133,6, 1)" : "#212121")};
+`;
 
 const ControlItem = styled.div`
   margin: auto 8px;
 `;
 
 export default function Controls(props) {
-  const { handleAddSub, handleOptions, handleReload, handleSend } = props;
+  const { handleAddSub, handleOptions, handleReload, handleSend, disabled } =
+    props;
+
+  console.log("disabled", disabled);
   return (
     <ControlsWrapper>
       <ControlItem>
@@ -106,7 +111,13 @@ export default function Controls(props) {
         </ReloadButton>
       </ControlItem>
       <ControlItem>
-        <SendButton name="send" alt="Send" title="Send" onClick={handleSend}>
+        <SendButton
+          name="send"
+          alt="Send"
+          title="Send"
+          onClick={handleSend}
+          disabled={disabled}
+        >
           <ControlsSendIcon />
         </SendButton>
       </ControlItem>

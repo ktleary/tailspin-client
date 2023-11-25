@@ -27,6 +27,7 @@ import StoryCharacter from "./story-character";
 import Theme from "./theme";
 import Tone from "./tone";
 import { InfoIcon } from "./buttons/icons";
+import Modal from "react-modal";
 
 const storyEndpoint = "http://localhost:8080/api/v1/create-story";
 
@@ -85,6 +86,76 @@ const InfoWrapper = styled.div`
   color: rgba(255, 255, 255, 0.77);
   &:hover {
     color: rgba(255, 255, 255, 1);
+  }
+`;
+
+const ModalTitle = styled.h3`
+  color: rgba(255, 255, 255, 0.77);
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 8px;
+`;
+
+const CredentialsInput = styled.input`
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.77);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 16px;
+  margin-top: 8px;
+  width: 80%;
+  height: 32px;
+  padding: 0 8px;
+  &:focus {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.77);
+  }
+`;
+
+const SetCredentialsButton = styled.button`
+  background: #212121;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 100px;
+  color: rgba(255, 255, 255, 0.77);
+  font-size: 14px;
+  font-weight: 500;
+  width: fit-content;
+  height: 32px;
+  padding: 8px 16px;
+  &:focus {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.77);
+    background: #313131;
+  }
+`;
+
+const SaveWrapper = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+`;
+
+const SaveButton = styled.button`
+  background: #212121;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 100px;
+  color: rgba(255, 255, 255, 0.77);
+  font-size: 14px;
+  font-weight: 500;
+  width: fit-content;
+  height: 32px;
+  padding: 8px 16px;
+  &:focus {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.77);
+    background: #313131;
   }
 `;
 
@@ -154,7 +225,26 @@ const update = {
   age: (currentAge) => getRandomAge({ number: 1, current: currentAge }),
 };
 
+const customStyles = {
+  content: {
+    margin: "0 auto",
+    borderRadius: "16px",
+    top: "20%",
+    height: "fit-content",
+    padding: "16px",
+    width: "30vw",
+    background: "#212121",
+    border: "1px solid rgba(255, 255, 255, 0.66)",
+    display: "flex",
+    flexDirection: "column",
+  },
+};
+
+Modal.setAppElement("#root");
+
 export default function Story(props) {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [password, setPassword] = useState("");
   const [story, setStory] = useState(() => storyLine({}));
   const [loading, setLoading] = useState(false);
   const [generatedStory, setGeneratedStory] = useState("");
@@ -162,6 +252,12 @@ export default function Story(props) {
     showFamily: true,
     showSetting: true,
   });
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+  const afterOpenModal = () => {
+    console.log("afterOpenModal");
+  };
 
   const handleReload = () => setStory(storyLine({}));
   const handleClick = (e) => {
@@ -177,9 +273,7 @@ export default function Story(props) {
     const currentValue = characters[row][name];
 
     const updated = update[name](currentValue);
-    console.log(
-      `name=${name} row=${row} column=${column} currentValue=${currentValue} updated=${updated}`
-    );
+
     column !== undefined
       ? (characters[row][name][column] = updated)
       : (characters[row][name] = updated);
@@ -255,6 +349,7 @@ export default function Story(props) {
       const response = await fetch(storyEndpoint, {
         method: "POST",
         headers: {
+          "x-credentials": password,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ story }),
@@ -265,7 +360,7 @@ export default function Story(props) {
       }
 
       const data = await response.json();
-      console.log(data); // Do something with the response data
+
       setGeneratedStory(data.story);
       setLoading(false);
     } catch (error) {
@@ -277,6 +372,22 @@ export default function Story(props) {
 
   return (
     <>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <ModalTitle>Enter demo credentials</ModalTitle>
+        <CredentialsInput
+          placeholder="Credentials"
+          type="text"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+        <SaveButton onClick={closeModal}>Save</SaveButton>
+      </Modal>
       <StoryContainer>
         <InfoWrapper>
           <FakeLink
@@ -321,8 +432,17 @@ export default function Story(props) {
           handleOptions={handleOptions}
           handleRemoveCharacter={handleRemoveCharacter}
           handleSend={postStory}
+          disabled={!password}
         />
       </StoryContainer>
+      {!loading && !generatedStory && (
+        <SaveWrapper>
+          <SetCredentialsButton onClick={openModal}>
+            Enter demo password
+          </SetCredentialsButton>
+        </SaveWrapper>
+      )}
+
       {loading && (
         <LoadingWrapper>
           <ProgressBar

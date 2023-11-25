@@ -21,6 +21,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-loader-spinner": "^5.4.5",
+    "react-modal": "^3.16.1",
     "react-scripts": "5.0.1",
     "react-tooltip": "^5.24.0",
     "styled-components": "^5.2.1",
