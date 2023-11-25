@@ -280,12 +280,16 @@ export default function Story(props) {
       <StoryContainer>
         <InfoWrapper>
           <FakeLink
-            data-tooltip-id="my-tooltip"
+            data-tooltip-id="tooltip"
             data-tooltip-content="Click on any word to change it."
+            data-tooltip-delay-hide={250}
+            data-tooltip-delay-show={250}
+            data-tooltip-effect="solid"
+            data-tooltip-place="top"
           >
             <InfoIcon />
           </FakeLink>
-          <Tooltip id="my-tooltip" />
+          <Tooltip id="tooltip" />
         </InfoWrapper>
         <Theme theme={story.theme} handleClick={handleClick} />
         <Conflict conflict={story.conflict} handleClick={handleClick} />
