@@ -15,7 +15,7 @@ const ControlsWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 0;
-  padding: 8px 0px;
+  padding: 8px 8px;
 `;
 
 const ControlsReloadIcon = styled(ReloadIcon)`

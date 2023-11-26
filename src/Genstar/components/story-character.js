@@ -103,9 +103,9 @@ const ContentRow = styled.div`
 
 const CloseContainer = styled.div`
   align-items: center;
-  display: flex;
+  width: 32px;
   justify-content: flex-end;
-  margin-right: 0px;
+  margin-right: 2px;
 `;
 
 export default function StoryCharacter(props) {
@@ -124,8 +124,10 @@ export default function StoryCharacter(props) {
         <ProfileImage src={character.image} />
       </ProfilePictureCell>
       <ContentContainer>
-        <ContentRow onClick={() => handleCharacter("givenName", idx)}>
-          <NameButtonCell>{character.givenName}</NameButtonCell>
+        <ContentRow>
+          <NameButtonCell onClick={() => handleCharacter("givenName", idx)}>
+            {character.givenName}
+          </NameButtonCell>
           {showFamily && (
             <NameButtonCell onClick={() => handleCharacter("familyName", idx)}>
               {character.familyName}
