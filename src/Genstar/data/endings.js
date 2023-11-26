@@ -1,23 +1,21 @@
 const endings = [
-  "happy",
-  "unhappy",
-  "cliffhanger",
-  "bittersweet",
-  "just",
-  "ambiguous",
-  "dramatic",
-  "unresolved",
-  "twist",
-  "tragic",
-  "ironic",
-  "mysterious",
-  "comical",
-  "romantic",
-  "Kafkaesque",
+  "classical / resolved (can be both tragic and comic)",
+  "expanded (the story continues)",
+  "unexpected, twist (catches the reader off guard)",
+  "Implied/Open-ended (most common in contemporary literature, hints over clarity)",
+  "Ambiguous/Unresolved ( reader left with questions )",
+  "tie-back (plot returns to the same place where it started)",
+  "Crystal Ball (the future is revealed)",
+  "cliffhanger (story ends abruptly)",
+  "Catastrophe (a sudden and widespread disaster)",
+  "Coup de Théâtre (an unexpected turn of events)",
+  "Epiphany (a sudden realization)",
+  "Revelation (a surprising discovery)",
 ];
 
 const tones = [
   "hardscrabble, gritty",
+  "Kafkaesque (absurd, unpleasant, frightening, and confusing)",
   "cheerful, optimistic",
   "dry, matter-of-fact",
   "assertive, confident",
@@ -66,8 +64,7 @@ const tones = [
   "ceremonial, formal",
   "candid, unreserved",
   "vivid, descriptive",
-  "cryptic, ambiguous"
+  "cryptic, ambiguous",
 ];
-
 
 export { endings, tones };

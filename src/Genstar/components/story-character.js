@@ -3,74 +3,109 @@ import styled from "styled-components";
 import CloseButton from "./buttons/close";
 import { ProfileImage } from "./profile-image";
 
-const CharacterWrapper = styled.div`
-  background: #212121;
+const CharacterCard = styled.div`
+  background: transparent;
   align-items: center;
+  justify-content: flex-start;
   display: flex;
-  height: 88px;
-  padding-left: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.33);
-  padding-bottom: 4px;
+  flex-direction: row;
+  height: auto;
+  padding: 8px;
+  transition: background-color 0.3s;
   &:hover {
-    background: #313131;
+    background: #2b2b2b;
   }
 `;
 
 const ProfilePictureCell = styled.div`
-  border: 1px solid rgba(255, 255, 255, 0.33);
-  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 100px;
   cursor: pointer;
+  min-height: 56px;
   height: 56px;
+  min-width: 56px;
   width: 56px;
-  margin-right: 16px;
-  &:hover {
-    color: #64ffda;
-    border: 1px solid rgba(255, 255, 255, 0.66);
-  }
+  margin-right: 12px;
 `;
 
-const NameCell = styled.div`
-  color: rgba(255, 255, 255, 0.87);
-  cursor: pointer;
-  font-size: 20px;
-  margin-right: 6px;
-  &:hover {
-    color: #64ffda;
-  }
-`;
-
-const NameHolder = styled.div`
-  display: block;
-  padding-top: 6px;
-  vertical-align: middle;
-`;
-
-const NameRow = styled.div`
+const ContentContainer = styled.div`
   display: flex;
+  background: transparent;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
 `;
 
-const WordCell = styled.div`
-  color: rgba(255, 255, 255, 0.66);
+const RoundButtonCell = styled.button`
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  font-size: 14px;
-  font-style: italic;
-  padding: 4px 2px;
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: "OpenSans", sans-serif;
+  height: 24px;
+  width: 24px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-right: 8px;
+  padding: 4px;
+  border-radius: 100px;
+  transition: background-color 0.3s, transform 0.2s;
   &:hover {
-    color: rgba(100, 255, 218, 0.76);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    background-color: #2b2b2b;
+    transform: translateY(-1px);
   }
 `;
 
-const PaddedWordCell = styled(WordCell)`
-padding-bottom: 4px;
+const RectangleButtonCell = styled(RoundButtonCell)`
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 4px 8px 4px 0px;
+  width: auto;
+  &:hover {
+    border-radius: 8px;
+    background-color: #2b2b2b;
+    transform: translateY(-1px);
+  }
+`;
+
+const NameButtonCell = styled.button`
+  border-radius: 8px;
+  padding: 4px 4px;
+  border: 0px;
+  cursor: pointer;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.87);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin: 2px 4px 2px 0px;
+  font-size: 20px;
+  transition: background-color 0.3s, transform 0.2s;
+  width: auto;
+  &:hover {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background-color: #2b2b2b;
+    transform: translateY(-1px);
+  }
+`;
+
+const ContentRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 const CloseContainer = styled.div`
   align-items: center;
-  height: 36px;
-  flex: 1;
   display: flex;
   justify-content: flex-end;
-  margin-right: 16px;
+  margin-right: 0px;
 `;
 
 export default function StoryCharacter(props) {
@@ -81,48 +116,48 @@ export default function StoryCharacter(props) {
   const handleMouseOut = () => setShowClose(false);
 
   return (
-    <CharacterWrapper
+    <CharacterCard
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseOut}
     >
       <ProfilePictureCell onClick={() => handleCharacter("image", idx)}>
         <ProfileImage src={character.image} />
       </ProfilePictureCell>
-      <NameHolder>
-        <NameRow>
-          <NameCell onClick={() => handleCharacter("givenName", idx)}>
-            {character.givenName}
-          </NameCell>
+      <ContentContainer>
+        <ContentRow onClick={() => handleCharacter("givenName", idx)}>
+          <NameButtonCell>{character.givenName}</NameButtonCell>
           {showFamily && (
-            <NameCell onClick={() => handleCharacter("familyName", idx)}>
+            <NameButtonCell onClick={() => handleCharacter("familyName", idx)}>
               {character.familyName}
-            </NameCell>
+            </NameButtonCell>
           )}
-        </NameRow>
-        <NameRow>
+        </ContentRow>
+        <ContentRow>
           {character.attributes.map((attribute, j) => (
-            <WordCell
+            <RectangleButtonCell
               onClick={() => handleCharacter("attributes", idx, j)}
               key={`attribute-${j}`}
             >
               {attribute}
-            </WordCell>
+            </RectangleButtonCell>
           ))}
-        </NameRow>
-        <NameRow>
-          <PaddedWordCell onClick={() => handleCharacter("age", idx)}>
+        </ContentRow>
+        <ContentRow>
+          <RoundButtonCell onClick={() => handleCharacter("age", idx)}>
             {character.age}
-          </PaddedWordCell>
-          <PaddedWordCell onClick={() => handleCharacter("occupation", idx)}>
+          </RoundButtonCell>
+          <RectangleButtonCell
+            onClick={() => handleCharacter("occupation", idx)}
+          >
             {character.occupation}
-          </PaddedWordCell>
-        </NameRow>
-      </NameHolder>
+          </RectangleButtonCell>
+        </ContentRow>
+      </ContentContainer>
       {showClose && (
         <CloseContainer>
           <CloseButton idx={idx} handleClick={handleRemoveCharacter} />
         </CloseContainer>
       )}
-    </CharacterWrapper>
+    </CharacterCard>
   );
 }

@@ -1,26 +1,33 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Genstar from "./Genstar/index";
-// import { getEnv } from "./Genstar/util/env";
+import { getEnv } from "./Genstar/util/env";
+
+async function preloadImages() {
+  const images = {};
+  const path = getEnv();
+  const numImages = 161;
+
+  await Promise.all(
+    Array.from({ length: numImages }, (_, i) => {
+      const img = new Image();
+      img.src = `${path}/images/${i + 1}.png`;
+      return new Promise((resolve) => {
+        img.onload = () => {
+          images[img.src] = img;
+          resolve();
+        };
+      });
+    })
+  );
+
+  return images;
+}
 
 export default function App() {
-  // const [images, setImages] = useState({});
-  // useEffect(() => {
-  //   function preloadImages(cb) {
-  //     const images = {};
-  //     const path = getEnv();
-  //     let i = 161;
-  //     while (i > 0) {
-  //       const imghld = new Image();
-  //       imghld.src = `${path}/images/${i}.png`;
-  //       images[imghld.src] = imghld;
-  //       i--;
-  //     }
-  //     cb(images);
-  //   }
+  const [images, setImages] = useState({});
+  useEffect(() => {
+    preloadImages().then((images) => setImages(images));
+  }, []);
 
-  //   preloadImages((images) => setImages(images));
-  // }, []);
-
-  return <Genstar />;
-  // images={images} />;
+  return <Genstar images={images} />;
 }

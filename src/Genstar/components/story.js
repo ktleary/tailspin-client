@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProgressBar } from "react-loader-spinner";
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
@@ -64,10 +64,11 @@ const StoryTextContainer = styled.div`
   border-top: 1px solid rgba(255, 255, 255, 0.66);
   padding-top: 0.5rem;
   font-family: "OpenSans", sans-serif;
-  min-width: 444px;
   line-height: 1.5;
   @media (max-width: 444px) {
     border: 1px solid rgba(255, 255, 255, 0.1);
+    width: fit-content;
+    padding: 4px 8px;
   }
 `;
 
@@ -101,6 +102,24 @@ const InfoWrapper = styled.div`
   }
 `;
 
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.66)",
+  },
+  content: {
+    margin: "0 auto",
+    borderRadius: "16px",
+    top: "20%",
+    height: "fit-content",
+    padding: "40px",
+    width: "fit-content",
+    background: "#212121",
+    border: "1px solid rgba(255, 255, 255, 0.33)",
+    display: "flex",
+    flexDirection: "column",
+  },
+};
+
 const ModalTitle = styled.h3`
   color: rgba(255, 255, 255, 0.77);
   font-size: 16px;
@@ -121,7 +140,7 @@ const CredentialsInput = styled.input`
   padding: 0;
   margin-bottom: 16px;
   margin-top: 8px;
-  width: 80%;
+  width: 90%;
   height: 32px;
   padding: 0 8px;
   &:focus {
@@ -138,7 +157,7 @@ const SetCredentialsButton = styled.button`
   font-size: 14px;
   font-weight: 500;
   width: fit-content;
-  height: 32px;
+  align-self: center;
   padding: 8px 16px;
   &:focus {
     outline: none;
@@ -150,6 +169,10 @@ const SetCredentialsButton = styled.button`
 const SaveWrapper = styled.div`
   width: 100%;
   text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   margin-top: 16px;
   margin-bottom: 16px;
 `;
@@ -162,7 +185,9 @@ const SaveButton = styled.button`
   font-size: 14px;
   font-weight: 500;
   width: fit-content;
-  height: 32px;
+  align-self: center;
+  flex-direction: row;
+  align-items: center;
   padding: 8px 16px;
   &:focus {
     outline: none;
@@ -235,21 +260,6 @@ const update = {
   occupation: (currentOccupation) =>
     getRandomOccupation({ number: 1, current: currentOccupation }).join(""),
   age: (currentAge) => getRandomAge({ number: 1, current: currentAge }),
-};
-
-const customStyles = {
-  content: {
-    margin: "0 auto",
-    borderRadius: "16px",
-    top: "20%",
-    height: "fit-content",
-    padding: "16px",
-    width: "30vw",
-    background: "#212121",
-    border: "1px solid rgba(255, 255, 255, 0.66)",
-    display: "flex",
-    flexDirection: "column",
-  },
 };
 
 Modal.setAppElement("#root");
@@ -382,6 +392,19 @@ export default function Story(props) {
     }
   };
 
+  const handleSavePassword = (e) => {
+    const password = e.target.value;
+    sessionStorage.setItem("demoPassword", password);
+    setPassword(password);
+  };
+
+  useEffect(() => {
+    const password = sessionStorage.getItem("demoPassword");
+    if (password) {
+      setPassword(password);
+    }
+  }, []);
+
   return (
     <>
       <Modal
@@ -395,7 +418,7 @@ export default function Story(props) {
         <CredentialsInput
           placeholder="Credentials"
           type="text"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleSavePassword}
           value={password}
         />
         <SaveButton onClick={closeModal}>Save</SaveButton>

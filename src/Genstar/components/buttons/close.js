@@ -8,16 +8,15 @@ const ControlsCloseIcon = styled(CloseIcon)`
 
 const Close = styled.button`
   align-items: center;
-  background: #212121;
+  background: #2b2b2b;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.66);
+  border-radius: 100px;
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   fill: rgba(255, 255, 255, 0.76);
   height: 32px;
-  line-height: 50%;
   outline: 0;
-  padding: 0;
+  padding: 2px;
   text-align: center;
   width: 32px;
   &:hover {

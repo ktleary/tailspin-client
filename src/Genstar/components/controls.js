@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import {
   AddIcon,
@@ -15,7 +15,7 @@ const ControlsWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 0;
-  padding: 8px 8px;
+  padding: 8px 0px;
 `;
 
 const ControlsReloadIcon = styled(ReloadIcon)`
@@ -59,7 +59,7 @@ const ReloadButton = styled.button`
   height: 32px;
   justify-content: center;
   outline: 0;
-  width: 56px;
+  width: fit-content;
   &:hover {
     background: #313131;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -80,13 +80,13 @@ const SendButton = styled(ReloadButton)`
 
 const ControlItem = styled.div`
   margin: auto 8px;
+  background: #212121;
 `;
 
-export default function Controls(props) {
+const Controls = (props) => {
   const { handleAddSub, handleOptions, handleReload, handleSend, disabled } =
     props;
 
-  console.log("disabled", disabled);
   return (
     <ControlsWrapper>
       <ControlItem>
@@ -123,4 +123,6 @@ export default function Controls(props) {
       </ControlItem>
     </ControlsWrapper>
   );
-}
+};
+
+export default memo(Controls);

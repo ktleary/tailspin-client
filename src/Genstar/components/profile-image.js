@@ -5,10 +5,11 @@ import { randomInt } from "../util/sort";
 
 const ProfileImageWrapper = styled.div`
   height: 56px;
+  width: 56px;
 `;
 
 const ProfilePhoto = styled.img`
-  border-radius: 28px;
+  border-radius: 100px;
   height: 56px;
   width: 56px;
 `;
