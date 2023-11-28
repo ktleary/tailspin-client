@@ -5,9 +5,9 @@ const SettingWrapper = styled.div`
   align-items: center;
   background: #212121;
   display: flex;
-  height: 16px;
+  height: fit-content;
   justify-content: flex-start;
-  padding: 8px 20px;
+  padding: 0px 20px;
 `;
 
 const SettingItem = styled.div`
