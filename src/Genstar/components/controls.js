@@ -79,8 +79,12 @@ const SendButton = styled(ReloadButton)`
 `;
 
 const ControlItem = styled.div`
-  margin: auto 8px;
+  margin: auto 4px;
   background: #212121;
+
+  @media (max-width: 360px) {
+    margin: auto 2px;
+  }
 `;
 
 const Controls = (props) => {

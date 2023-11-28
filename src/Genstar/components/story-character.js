@@ -4,6 +4,7 @@ import CloseButton from "./buttons/close";
 import { ProfileImage } from "./profile-image";
 
 const CharacterCard = styled.div`
+  position: relative;
   background: transparent;
   align-items: center;
   justify-content: flex-start;
@@ -99,9 +100,13 @@ const ContentRow = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
 `;
 
 const CloseContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
   align-items: center;
   width: 32px;
   justify-content: flex-end;
