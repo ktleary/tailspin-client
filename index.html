@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
 
-    <base href="%PUBLIC_URL%/" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <base href="%BASE_URL%" />
+    <link rel="icon" href="%BASE_URL%favicon.ico" />
     <!--  <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
     <meta
       name="viewport"
@@ -25,14 +25,15 @@
       content="https://stringtalk.org/genstar/android-chrome-512x512.png"
     />
     <meta property="og:url" content="https://tailspin.fun" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" href="%BASE_URL%logo192.png" />
 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="manifest" href="%BASE_URL%manifest.json" />
 
     <title>Tailspin: Craft Your Tale</title>
   </head>
   <body>
     <noscript>tailspin.fun requires Javascript.</noscript>
     <div id="root"></div>
+    <script type="module" src="/src/index.js"></script>
   </body>
 </html>
