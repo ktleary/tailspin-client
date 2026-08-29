@@ -92,6 +92,26 @@ const ReloadIcon = ({ className }) => (
   </Svg>
 );
 
+const ExpandIcon = ({ className }) => (
+  <Svg title="Expand" viewBox="0 0 24 24" className={className}>
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path
+      fill="currentColor"
+      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+    />
+  </Svg>
+);
+
+const CollapseIcon = ({ className }) => (
+  <Svg title="Collapse" viewBox="0 0 24 24" className={className}>
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path
+      fill="currentColor"
+      d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+    />
+  </Svg>
+);
+
 const SubtractIcon = ({ className }) => (
   <Svg viewBox="0 0 24 24" className={className} title="AngelList">
     <path d="M0 0h24v24H0z" fill="none" />
@@ -103,6 +123,8 @@ export {
   AddIcon,
   AddLocationIcon,
   CloseIcon,
+  CollapseIcon,
+  ExpandIcon,
   FamilyIcon,
   PersonIcon,
   ReloadIcon,

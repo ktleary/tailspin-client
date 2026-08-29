@@ -49,3 +49,59 @@ test("generate is enabled without a demo password", async () => {
   expect(await screen.findByText("Once upon a time.")).toBeInTheDocument();
 });
 
+test("generate collapses the prompt card and expands pickers back", async () => {
+  const fetchMock = vi.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({
+      story: "# The Last Lantern\n\n**A storm, a secret.**\n\nOnce upon a time.",
+    }),
+  });
+  globalThis.fetch = fetchMock;
+
+  render(<Story />);
+
+  expect(screen.getByText("Tone")).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: /send/i }));
+
+  expect(await screen.findByRole("heading", { name: "The Last Lantern" })).toBeInTheDocument();
+  expect(screen.queryByText("# The Last Lantern")).not.toBeInTheDocument();
+  expect(screen.getByText("A storm, a secret.")).toBeInTheDocument();
+  expect(screen.getByText("A storm, a secret.").tagName).toBe("STRONG");
+  expect(screen.queryByText("Tone")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /expand pickers/i })).toBeInTheDocument();
+  expect(screen.queryByLabelText("progress-bar-loading")).not.toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("button", { name: /expand pickers/i }));
+  expect(screen.getByText("Tone")).toBeInTheDocument();
+  expect(screen.getByRole("heading", { name: "The Last Lantern" })).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole("button", { name: /collapse pickers/i }));
+  expect(screen.queryByText("Tone")).not.toBeInTheDocument();
+});
+
+test("progress bar stays on the collapsed card until text arrives", async () => {
+  let resolveFetch;
+  const fetchMock = vi.fn().mockReturnValue(
+    new Promise((resolve) => {
+      resolveFetch = resolve;
+    })
+  );
+  globalThis.fetch = fetchMock;
+
+  render(<Story />);
+  fireEvent.click(screen.getByRole("button", { name: /send/i }));
+
+  expect(await screen.findByLabelText("progress-bar-loading")).toBeInTheDocument();
+  expect(screen.queryByText("Tone")).not.toBeInTheDocument();
+  expect(screen.queryByText("Creating your story...")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /expand pickers/i })).toBeInTheDocument();
+
+  resolveFetch({
+    ok: true,
+    json: async () => ({ story: "Once upon a time." }),
+  });
+
+  expect(await screen.findByText("Once upon a time.")).toBeInTheDocument();
+  expect(screen.queryByLabelText("progress-bar-loading")).not.toBeInTheDocument();
+});
+
