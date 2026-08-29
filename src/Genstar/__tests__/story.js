@@ -33,7 +33,7 @@ test("generate is enabled without a demo password", async () => {
   expect(screen.queryByText(/Enter demo password/i)).not.toBeInTheDocument();
   expect(screen.queryByPlaceholderText(/Credentials/i)).not.toBeInTheDocument();
 
-  const send = screen.getByTitle("Send");
+  const send = screen.getByRole("button", { name: /send/i });
   expect(send).toBeEnabled();
   fireEvent.click(send);
 
