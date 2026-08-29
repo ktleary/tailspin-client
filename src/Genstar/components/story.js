@@ -24,9 +24,11 @@ import PlotPoint from "./plot-point";
 import { createProfileUrl } from "./profile-image";
 import Setting from "./setting";
 import StoryCharacter from "./story-character";
+import StoryMarkdown from "./story-markdown";
+import StorySummary from "./story-summary";
 import Theme from "./theme";
 import Tone from "./tone";
-import { InfoIcon } from "./buttons/icons";
+import { CollapseIcon, InfoIcon } from "./buttons/icons";
 
 const getEndPoint = () => {
   if (window.location.href.includes("tailspin.fun")) {
@@ -42,41 +44,73 @@ const getEndPoint = () => {
 
 const storyEndpoint = getEndPoint();
 
-const StoryContainer = styled.div`
-  background: #212121;
+const PageStack = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   margin: 0 auto;
   max-width: 444px;
-  font-family: "OpenSans", sans-serif;
+  min-height: 0;
+  width: 100%;
+`;
+
+const StoryContainer = styled.div`
+  background: #212121;
   border: 1px solid rgba(255, 255, 255, 0.66);
   border-radius: 8px;
+  flex-shrink: 0;
+  font-family: "OpenSans", sans-serif;
+  margin: 0 auto;
+  max-width: 444px;
   padding: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
   @media (max-width: 444px) {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 `;
 
-const StoryTextContainer = styled.div`
+const ReaderPane = styled.div`
   color: rgba(255, 255, 255, 0.8);
-  font-size: 14px;
-  margin: 36px auto;
-  max-width: 444px;
-  border-top: 1px solid rgba(255, 255, 255, 0.66);
-  padding-top: 0.5rem;
+  flex: 1;
   font-family: "OpenSans", sans-serif;
+  font-size: 14px;
   line-height: 1.5;
-  @media (max-width: 444px) {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    width: fit-content;
-    padding: 4px 8px;
-  }
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px 8px 24px;
 `;
 
 const LoadingWrapper = styled.div`
-  margin: 0 auto;
-  max-width: 444px;
   align-items: center;
   display: flex;
   justify-content: center;
+  margin: 0 auto;
+`;
+
+const CollapseButton = styled.button`
+  align-items: center;
+  background: #212121;
+  border: 1px solid rgba(23, 23, 24, 0.1);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.77);
+  cursor: pointer;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  margin-right: 4px;
+  outline: 0;
+  width: 32px;
+  &:hover {
+    background: #313131;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 1);
+  }
+`;
+
+const CollapseButtonIcon = styled(CollapseIcon)`
+  height: 24px;
+  width: 24px;
 `;
 
 const Label = styled.div`
@@ -171,6 +205,7 @@ export default function Story(props) {
   const [story, setStory] = useState(() => storyLine({}));
   const [loading, setLoading] = useState(false);
   const [generatedStory, setGeneratedStory] = useState("");
+  const [promptCollapsed, setPromptCollapsed] = useState(false);
   const [options, setOptions] = useState({
     showFamily: true,
     showSetting: true,
@@ -261,8 +296,8 @@ export default function Story(props) {
     }
 
     try {
+      setPromptCollapsed(true);
       setLoading(true);
-      setGeneratedStory("Creating your story...");
       const response = await fetch(storyEndpoint, {
         method: "POST",
         headers: {
@@ -286,73 +321,99 @@ export default function Story(props) {
     }
   };
 
+  const showReader = promptCollapsed || Boolean(generatedStory);
+  const canCollapsePickers = loading || Boolean(generatedStory);
+
   return (
-    <>
+    <PageStack>
       <StoryContainer>
-        <InfoWrapper>
-          <FakeLink
-            data-tooltip-id="tooltip"
-            data-tooltip-content="Click on any word to change it."
-            data-tooltip-delay-hide={250}
-            data-tooltip-delay-show={250}
-            data-tooltip-effect="solid"
-            data-tooltip-place="top"
-          >
-            <InfoIcon />
-          </FakeLink>
-          <Tooltip id="tooltip" />
-        </InfoWrapper>
-        <Theme theme={story.theme} handleClick={handleClick} />
-        <Conflict conflict={story.conflict} handleClick={handleClick} />
-        <PlotPoint plotPoint={story.plotPoint} handleClick={handleClick} />
-        {story.characters.map((character, idx) => (
-          <StoryCharacter
-            character={character}
-            key={`character-${idx}`}
-            handleCharacter={handleCharacter}
-            handleRemoveCharacter={handleRemoveCharacter}
-            showFamily={options.showFamily}
-            idx={idx}
+        {promptCollapsed ? (
+          <StorySummary
+            theme={theme}
+            time={time}
+            location={location}
+            showSetting={options.showSetting}
+            loading={loading}
+            handleExpand={() => setPromptCollapsed(false)}
+            handleSend={postStory}
           />
-        ))}
-        <Label>Tone</Label>
-        <Tone tone={story.tone} handleClick={handleClick} />
-        <Label>Ending</Label>
-        <Ending ending={story.ending} handleClick={handleClick} />
-        <Label>Setting</Label>
-        <Setting
-          time={story.time}
-          location={story.location}
-          handleClick={handleClick}
-          showSetting={options.showSetting}
-        />
-        <Controls
-          handleAddSub={handleAddSub}
-          handleReload={handleReload}
-          handleOptions={handleOptions}
-          handleRemoveCharacter={handleRemoveCharacter}
-          handleSend={postStory}
-        />
+        ) : (
+          <>
+            <InfoWrapper>
+              {canCollapsePickers && (
+                <CollapseButton
+                  type="button"
+                  title="Collapse"
+                  aria-label="Collapse pickers"
+                  onClick={() => setPromptCollapsed(true)}
+                >
+                  <CollapseButtonIcon />
+                </CollapseButton>
+              )}
+              <FakeLink
+                data-tooltip-id="tooltip"
+                data-tooltip-content="Click on any word to change it."
+                data-tooltip-delay-hide={250}
+                data-tooltip-delay-show={250}
+                data-tooltip-effect="solid"
+                data-tooltip-place="top"
+              >
+                <InfoIcon />
+              </FakeLink>
+              <Tooltip id="tooltip" />
+            </InfoWrapper>
+            <Theme theme={story.theme} handleClick={handleClick} />
+            <Conflict conflict={story.conflict} handleClick={handleClick} />
+            <PlotPoint plotPoint={story.plotPoint} handleClick={handleClick} />
+            {story.characters.map((character, idx) => (
+              <StoryCharacter
+                character={character}
+                key={`character-${idx}`}
+                handleCharacter={handleCharacter}
+                handleRemoveCharacter={handleRemoveCharacter}
+                showFamily={options.showFamily}
+                idx={idx}
+              />
+            ))}
+            <Label>Tone</Label>
+            <Tone tone={story.tone} handleClick={handleClick} />
+            <Label>Ending</Label>
+            <Ending ending={story.ending} handleClick={handleClick} />
+            <Label>Setting</Label>
+            <Setting
+              time={story.time}
+              location={story.location}
+              handleClick={handleClick}
+              showSetting={options.showSetting}
+            />
+            <Controls
+              handleAddSub={handleAddSub}
+              handleReload={handleReload}
+              handleOptions={handleOptions}
+              handleRemoveCharacter={handleRemoveCharacter}
+              handleSend={postStory}
+              disabled={loading}
+            />
+          </>
+        )}
+        {loading && (
+          <LoadingWrapper>
+            <ProgressBar
+              ariaLabel="progress-bar-loading"
+              wrapperStyle={{}}
+              height={80}
+              width={80}
+              borderColor="#212121"
+              barColor="#64ffda"
+            />
+          </LoadingWrapper>
+        )}
       </StoryContainer>
-      {loading && (
-        <LoadingWrapper>
-          <ProgressBar
-            ariaLabel="progress-bar-loading"
-            wrapperStyle={{}}
-            height={80}
-            width={80}
-            borderColor="#212121"
-            barColor="#64ffda"
-          />
-        </LoadingWrapper>
+      {showReader && (
+        <ReaderPane>
+          {generatedStory ? <StoryMarkdown text={generatedStory} /> : null}
+        </ReaderPane>
       )}
-      {generatedStory && (
-        <StoryTextContainer>
-          {generatedStory.split("\n").map((line, idx) => (
-            <p key={`generated-story-${idx}`}>{line}</p>
-          ))}
-        </StoryTextContainer>
-      )}
-    </>
+    </PageStack>
   );
 }
