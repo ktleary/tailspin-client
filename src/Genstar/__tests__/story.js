@@ -17,5 +17,6 @@ test("it should render StoryCharacter", () => {
       idx={idx}
     />
   );
+  expect(screen.getByText("even-keeled")).toBeInTheDocument();
 });
 

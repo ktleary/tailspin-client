@@ -1,5 +1,4 @@
-import Character from "../components/character";
-import ProfileImage from "../components/profile-image";
+import { character as createCharacter } from "../components/character";
 
 it("should equal hello", () => {
   const hello = "hello";
@@ -7,11 +6,10 @@ it("should equal hello", () => {
 });
 
 test("it should create a new Character", () => {
-  const character = new Character({
+  const character = createCharacter({
     attributes: ["funny", "smart"],
     givenName: "Mary",
     familyName: "Smith",
-    image: <ProfileImage />,
     idx: 0,
   });
   expect(character.attributes.length).toEqual(2);
