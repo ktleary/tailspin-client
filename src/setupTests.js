@@ -7,10 +7,3 @@ import { vi } from 'vitest';
 
 // Existing tests use jest.fn(); keep that API without rewriting the suite.
 globalThis.jest = vi;
-
-// react-modal calls setAppElement("#root") at import time.
-if (!document.getElementById('root')) {
-  const root = document.createElement('div');
-  root.setAttribute('id', 'root');
-  document.body.appendChild(root);
-}
