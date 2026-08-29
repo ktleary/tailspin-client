@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ExpandIcon, SendIcon } from "./buttons/icons";
+import { DownloadIcon, ExpandIcon, SendIcon } from "./buttons/icons";
 
 const Row = styled.div`
   align-items: center;
@@ -70,14 +70,21 @@ const SummarySendIcon = styled(SendIcon)`
   width: 24px;
 `;
 
+const SummaryDownloadIcon = styled(DownloadIcon)`
+  height: 24px;
+  width: 24px;
+`;
+
 export default function StorySummary({
   theme,
   time,
   location,
   showSetting,
   loading,
+  hasStory,
   handleExpand,
   handleSend,
+  handleDownload,
 }) {
   const setting = showSetting ? [time, location].filter(Boolean).join(", ") : "";
 
@@ -88,6 +95,16 @@ export default function StorySummary({
         {setting ? <SettingBit> · {setting}</SettingBit> : null}
       </Summary>
       <Buttons>
+        {hasStory ? (
+          <IconButton
+            type="button"
+            title="Download"
+            aria-label="Download story"
+            onClick={handleDownload}
+          >
+            <SummaryDownloadIcon />
+          </IconButton>
+        ) : null}
         <IconButton
           type="button"
           title="Expand"

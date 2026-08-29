@@ -28,6 +28,7 @@ import StoryMarkdown from "./story-markdown";
 import StorySummary from "./story-summary";
 import Theme from "./theme";
 import Tone from "./tone";
+import { downloadStoryMarkdown } from "../util/download";
 import { CollapseIcon, InfoIcon } from "./buttons/icons";
 
 const getEndPoint = () => {
@@ -336,6 +337,8 @@ export default function Story(props) {
             loading={loading}
             handleExpand={() => setPromptCollapsed(false)}
             handleSend={postStory}
+            hasStory={Boolean(generatedStory && generatedStory.trim())}
+            handleDownload={() => downloadStoryMarkdown(generatedStory)}
           />
         ) : (
           <>
