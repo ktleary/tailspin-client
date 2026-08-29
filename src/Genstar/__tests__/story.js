@@ -69,14 +69,17 @@ test("generate collapses the prompt card and expands pickers back", async () => 
   expect(screen.getByText("A storm, a secret.").tagName).toBe("STRONG");
   expect(screen.queryByText("Tone")).not.toBeInTheDocument();
   expect(screen.getByRole("button", { name: /expand pickers/i })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /download story/i })).toBeInTheDocument();
   expect(screen.queryByLabelText("progress-bar-loading")).not.toBeInTheDocument();
 
   fireEvent.click(screen.getByRole("button", { name: /expand pickers/i }));
   expect(screen.getByText("Tone")).toBeInTheDocument();
   expect(screen.getByRole("heading", { name: "The Last Lantern" })).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: /download story/i })).not.toBeInTheDocument();
 
   fireEvent.click(screen.getByRole("button", { name: /collapse pickers/i }));
   expect(screen.queryByText("Tone")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /download story/i })).toBeInTheDocument();
 });
 
 test("progress bar stays on the collapsed card until text arrives", async () => {
@@ -95,6 +98,7 @@ test("progress bar stays on the collapsed card until text arrives", async () => 
   expect(screen.queryByText("Tone")).not.toBeInTheDocument();
   expect(screen.queryByText("Creating your story...")).not.toBeInTheDocument();
   expect(screen.getByRole("button", { name: /expand pickers/i })).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: /download story/i })).not.toBeInTheDocument();
 
   resolveFetch({
     ok: true,
@@ -103,5 +107,44 @@ test("progress bar stays on the collapsed card until text arrives", async () => 
 
   expect(await screen.findByText("Once upon a time.")).toBeInTheDocument();
   expect(screen.queryByLabelText("progress-bar-loading")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /download story/i })).toBeInTheDocument();
+});
+
+test("download is hidden until a story exists and then saves the markdown", async () => {
+  const fetchMock = vi.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({
+      story: "# The Last Lantern\n\n**A storm, a secret.**\n\nOnce upon a time.",
+    }),
+  });
+  globalThis.fetch = fetchMock;
+
+  const createObjectURL = vi.fn(() => "blob:mock-story");
+  const revokeObjectURL = vi.fn();
+  vi.stubGlobal("URL", { createObjectURL, revokeObjectURL });
+
+  const click = vi.fn();
+  const originalCreateElement = document.createElement.bind(document);
+  vi.spyOn(document, "createElement").mockImplementation((tag) => {
+    const element = originalCreateElement(tag);
+    if (tag === "a") {
+      element.click = click;
+    }
+    return element;
+  });
+
+  render(<Story />);
+
+  expect(screen.queryByRole("button", { name: /download story/i })).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: /send/i }));
+
+  const download = await screen.findByRole("button", { name: /download story/i });
+  fireEvent.click(download);
+
+  expect(createObjectURL).toHaveBeenCalledTimes(1);
+  const blob = createObjectURL.mock.calls[0][0];
+  expect(blob).toBeInstanceOf(Blob);
+  expect(click.mock.instances[0].download).toEqual("the-last-lantern.md");
+  expect(revokeObjectURL).toHaveBeenCalledWith("blob:mock-story");
 });
 

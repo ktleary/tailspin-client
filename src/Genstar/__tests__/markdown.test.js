@@ -1,4 +1,9 @@
-import { parseInline, parseStoryMarkdown } from "../util/markdown";
+import {
+  parseInline,
+  parseStoryMarkdown,
+  slugifyFilename,
+  storyMarkdownFilename,
+} from "../util/markdown";
 
 test("parseInline turns **text** into strong parts", () => {
   expect(parseInline("A **kicker** line")).toEqual([
@@ -36,4 +41,26 @@ test("parseStoryMarkdown leaves raw # in the middle of a line alone", () => {
     type: "paragraph",
     children: [{ type: "text", value: "Call it #3 and move on." }],
   });
+});
+
+test("slugifyFilename lowercases and hyphenates", () => {
+  expect(slugifyFilename("The Last Lantern")).toEqual("the-last-lantern");
+  expect(slugifyFilename("Hello, World!")).toEqual("hello-world");
+  expect(slugifyFilename("  -- Already-Slugged --  ")).toEqual("already-slugged");
+});
+
+test("storyMarkdownFilename uses the first heading slug", () => {
+  expect(
+    storyMarkdownFilename("# The Last Lantern\n\nOnce upon a time.")
+  ).toEqual("the-last-lantern.md");
+  expect(storyMarkdownFilename("## Hello, World!\n\nBody.")).toEqual(
+    "hello-world.md"
+  );
+});
+
+test("storyMarkdownFilename falls back to story.md", () => {
+  expect(storyMarkdownFilename("Once upon a time.")).toEqual("story.md");
+  expect(storyMarkdownFilename("")).toEqual("story.md");
+  expect(storyMarkdownFilename("#   ")).toEqual("story.md");
+  expect(storyMarkdownFilename("# !!!")).toEqual("story.md");
 });

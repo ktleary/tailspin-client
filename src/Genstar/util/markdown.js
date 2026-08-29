@@ -23,6 +23,31 @@ export function parseInline(text) {
   return parts.length ? parts : [{ type: "text", value: text }];
 }
 
+export function slugifyFilename(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function storyMarkdownFilename(text) {
+  if (!text || !String(text).trim()) {
+    return "story.md";
+  }
+
+  const heading = String(text)
+    .split(/\r?\n/)
+    .map((line) => line.match(HEADING))
+    .find(Boolean);
+
+  if (!heading) {
+    return "story.md";
+  }
+
+  const slug = slugifyFilename(heading[2].trim());
+  return slug ? `${slug}.md` : "story.md";
+}
+
 export function parseStoryMarkdown(text) {
   if (!text) {
     return [];
