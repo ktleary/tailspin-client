@@ -15,22 +15,12 @@
     ]
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-loader-spinner": "^5.4.5",
     "react-modal": "^3.16.1",
     "react-tooltip": "^5.24.0",
-    "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "styled-components": "^5.2.1"
   },
   "license": "GPL-3.0-or-later",
   "main": "index.html",
@@ -43,6 +33,8 @@
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^2.1.9",
     "jsdom": "^25.0.1",
