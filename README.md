@@ -1,90 +1,45 @@
 # Tailspin Client
 
-## Tailspin: Craft Your Tale - Interactive AI Story Generator
+## Tailspin: Craft Your Tale — Interactive AI Story Generator
 
-Tailspin is an interactive web application designed to unleash your creativity in storytelling. Leveraging the power of AI, Tailspin enables users to generate unique story outlines that can be further developed into full-fledged narratives.
+Tailspin is an interactive web app that turns a click-assembled outline into a short story. Live at [tailspin.fun](https://tailspin.fun/).
 
 ![Tailspin Screenshot](tailspin-screen.png)
 
-```markdown
-The midwestern sun blazed down on the small cabin where Alexander, Ivy,
-and Jun were staying for their weeklong vacation. The air was thick
-with the scent of corn and the distant sound of cattle could be heard.
-It was August, the peak of summer, and the perfect time to escape
-the city and all of its craziness.
+## Architecture
 
-Alexander, a spirited young man with a head full of opinions, was lounging
-in a hammock, sipping on a cold beer. Ivy, a nonconformist musician,
-was sprawled on the grass, strumming her guitar. Jun, the polite and
-conscientious waiter, was busy tending to the BBQ, his apron stained
-with sauce.
+1. **User selections** — theme, characters, tone, ending, setting, and plot point come from curated pools in `src/Genstar/data/`.
+2. On each “next suggestion” click the client POSTs the partial story plus a candidate pool to **`/api/v1/rank-suggestions`**. One Jev call scores candidates for coherence with the outline and the API samples top-k from that distribution (not just #1).
+3. The user picks from those ranked suggestions.
+4. **`POST /api/v1/create-story`** sends the full outline; the backend generates ~800 words under tone-matched style guidance.
 
-They had been friends since college and had promised to take a trip together
-every summer. This year, they had decided on the Midwest, craving the
-simplicity and peace that it offered.
+If ranking is unavailable, the client keeps the **legacy random path**. The API signals that with `degraded: true`.
 
-As the sun began to set, they gathered around the fire, roasting marshmallows
-and sharing stories. The fireflies danced around them, adding to the magical
-atmosphere. Everything seemed perfect, until Alexander's phone rang ...
-```
+## Data curation
 
-## In the Wild
+Suggestion pools were editorially curated (Sept 2026) against literary-craft sources: Tobias’s *20 Master Plots* (plot points mapped to all 20 shapes), Freytag’s pyramid, and five-elements storytelling. Names went from 1,411 → 397; modern/AI themes were added; settings taxonomy drift was fixed. TypeSafe Jev coherence checks: mean 2.19/3, zero clashing configs.
 
-Tailspin is currently deployed on [tailspin.fun](https://tailspin.fun/).
+## Features
 
-To use the AI capabilities, send an email to kevin@ktleary.com to request an demo API key.
+- Click any element to reroll it (Jev-ranked when the API is up).
+- AI-backed full-story generation from the outline.
+- Tones and endings as first-class constraints, not decorations.
 
-### Features
-
-- **Interactive Story Elements**: Click to modify elements of your story including characters, settings, and plot points.
-- **AI-Powered Story Generation**: Integrates with an AI backend to transform your outline into a captivating story.
-- **Customizable Experience**: Offers a range of tones and endings to choose from, making each story unique.
-
-### Getting Started
-
-To get started with Tailspin, clone this repository and install its dependencies:
+## Getting Started
 
 ```bash
-git clone https://github.com/yourusername/tailspin-client.git
+git clone https://github.com/ktleary/tailspin-client.git
 cd tailspin-client
 npm install
-```
-
-To run Tailspin locally:
-
-```bash
 npm start
 ```
 
-This will start the application on localhost:3000 (or your default React port).
-
-## Building for Production
-
-To build the application for production:
+Runs on localhost:3000. Point the API at `http://localhost:8080` (see `src/Genstar/components/story.js`).
 
 ```bash
 npm run build
 ```
 
-This will create a build folder with a production build of the application.
-
-## Dependencies
-
-- React
-- React-DOM
-- Styled-Components
-- React Loader Spinner
-- Testing Libraries (Jest-DOM, React Testing Library)
-
-## Contributing
-
-Contributions to Tailspin are welcome! Whether it's submitting a bug, proposing new features, or improving documentation, your input is highly appreciated.
-
-- Fork the repository.
-- Create a new branch with a descriptive name.
-- Make your changes.
-- Submit a pull request.
-
 ## License
 
-Tailspin is open-source software licensed under the GPL-3.0-or-later license.
+GPL-3.0-or-later.
