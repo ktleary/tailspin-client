@@ -29,6 +29,11 @@ import StorySummary from "./story-summary";
 import Theme from "./theme";
 import Tone from "./tone";
 import { downloadStoryMarkdown } from "../util/download";
+import {
+  candidatePool,
+  pickRankedOrFallback,
+  rankSuggestions,
+} from "../util/rank-suggestions";
 import { CollapseIcon, InfoIcon } from "./buttons/icons";
 
 const getEndPoint = () => {
@@ -213,20 +218,48 @@ export default function Story(props) {
   });
 
   const handleReload = () => setStory(storyLine({}));
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     const name = e.currentTarget.getAttribute("name");
-    setStory({
-      ...story,
-      [name]: update[name](story[name]),
-    });
+    const fallback = update[name](story[name]);
+    const pool = candidatePool(name, story[name]);
+    if (!pool.length) {
+      setStory({ ...story, [name]: fallback });
+      return;
+    }
+    try {
+      const result = await rankSuggestions({
+        story,
+        field: name,
+        candidates: pool.map(String),
+      });
+      setStory({
+        ...story,
+        [name]: pickRankedOrFallback(result, fallback),
+      });
+    } catch (err) {
+      console.error(`rank-suggestions fallback: ${err.message}`);
+      setStory({ ...story, [name]: fallback });
+    }
   };
 
-  const handleCharacter = (name, row, column) => {
+  const handleCharacter = async (name, row, column) => {
     const { characters } = { ...story };
     const currentValue = characters[row][name];
-
-    const updated = update[name](currentValue);
-
+    const fallback = update[name](currentValue);
+    const pool = candidatePool(name, currentValue);
+    let updated = fallback;
+    if (pool.length) {
+      try {
+        const result = await rankSuggestions({
+          story,
+          field: name,
+          candidates: pool.map(String),
+        });
+        updated = pickRankedOrFallback(result, fallback);
+      } catch (err) {
+        console.error(`rank-suggestions fallback: ${err.message}`);
+      }
+    }
     column !== undefined
       ? (characters[row][name][column] = updated)
       : (characters[row][name] = updated);
