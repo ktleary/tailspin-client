@@ -48,12 +48,14 @@ test("it should return 2 random item not including existing item", () => {
   expect(items.includes("two")).toEqual(false);
 });
 
-it("should return a random number between 1 and 10", () => {
+it("should return a random number between 1 and 10 inclusive", () => {
   const min = 1;
   const max = 10;
-  const random = randomInt(min, max);
-
-  expect(random < 10 && random > 0).toEqual(true);
+  for (let i = 0; i < 50; i++) {
+    const random = randomInt(min, max);
+    expect(random).toBeGreaterThanOrEqual(min);
+    expect(random).toBeLessThanOrEqual(max);
+  }
 });
 
 afterEach(cleanup);
