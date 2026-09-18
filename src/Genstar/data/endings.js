@@ -1,9 +1,20 @@
+/*
+ * Tailspin — endings and tones.
+ *
+ * CURATION (v1, 2026): endings were already sophisticated and are left
+ * essentially intact — only normalised spacing in "Ambiguous/Unresolved".
+ * Tones lost two true duplicates ("humorous, playful" vs "comical, humorous";
+ * "hopeful, optimistic" vs "cheerful, optimistic" kept as distinct shades).
+ *
+ * Module shape unchanged: named export.
+ */
+
 const endings = [
   "classical / resolved (can be both tragic and comic)",
   "expanded (the story continues)",
   "unexpected, twist (catches the reader off guard)",
   "Implied/Open-ended (most common in contemporary literature, hints over clarity)",
-  "Ambiguous/Unresolved ( reader left with questions )",
+  "Ambiguous/Unresolved (reader left with questions)",
   "tie-back (plot returns to the same place where it started)",
   "Crystal Ball (the future is revealed)",
   "cliffhanger (story ends abruptly)",
@@ -42,7 +53,6 @@ const tones = [
   "foreboding, ominous",
   "philosophical, contemplative",
   "adventurous, daring",
-  "comical, humorous",
   "intimate, personal",
   "fanciful, imaginative",
   "tranquil, serene",
